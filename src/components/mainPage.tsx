@@ -1,3 +1,4 @@
+import "../styles/mainPage.css";
 import white_disc_imagePath from "../assets/white-disc.png";
 import black_disc_imagePath from "../assets/black-disc.png";
 import { useState } from "react";
