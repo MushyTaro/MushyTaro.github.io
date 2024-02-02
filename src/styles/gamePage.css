@@ -27,3 +27,48 @@
 	grid-template-rows: repeat(8, 1fr);
 	gap: 0px;
 }
+
+.scoreBoard {
+	display: grid;
+	width: 70vw;
+	grid-template-columns: 2fr 1fr 1fr 1fr 2fr;
+	font-size: 2.5rem;
+	margin-top: 30px;
+}
+.playerCard,
+.playerDiscCard {
+	background-color: blueviolet;
+}
+.computerCard,
+.computerDiscCard {
+	background-color: rgb(42, 41, 43);
+}
+.playerDiscCard,
+.computerDiscCard {
+	position: relative;
+}
+.playerDiscCard.black,
+.computerDiscCard.black {
+	color: black;
+}
+.scoreBoardText {
+	background-color: aqua;
+}
+
+.playerCard,
+.computerCard,
+.computerDiscCard,
+.playerDiscCard,
+.scoreBoardText {
+	padding: 3px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 100%;
+}
+.centered {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
