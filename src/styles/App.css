@@ -1,23 +1,23 @@
 :root {
-  font-size: 16px;
-  @media (min-height: 850px) {
-    font-size: 24px;
-  }
-  @media (max-height: 550px) {
-    font-size: 12px;
-  }
-  @media (max-height: 450px) {
-    font-size: 9px;
-  }
+	font-size: 16px;
+	@media (min-height: 850px) {
+		font-size: 24px;
+	}
+	@media (max-height: 550px) {
+		font-size: 12px;
+	}
+	@media (max-height: 450px) {
+		font-size: 9px;
+	}
 }
 
 body {
-  margin: 0;
-  background-image: url("../assets/wallpaper.jpg");
-  background-size: cover;
-  background-position: center;
+	margin: 0;
+	background-image: url("../assets/wallpaper.jpg");
+	background-size: cover;
+	background-position: center;
 }
 
 #content {
-  color: white;
+	color: white;
 }

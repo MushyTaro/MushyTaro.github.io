@@ -2,16 +2,22 @@ import "../styles/mainPage.css";
 import white_disc_imagePath from "../assets/white-disc.png";
 import black_disc_imagePath from "../assets/black-disc.png";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function MainPage() {
 	const [selectedDifficulty, setSelectedDifficulty] = useState("Easy");
 	const [selectedDiscColor, setSelectedDiscColor] = useState("White");
+	const navigate = useNavigate();
 
 	const handleDifficulty = (difficulty: "Easy" | "Hard") => {
 		setSelectedDifficulty(difficulty);
 	};
 	const handleDiscColor = (discColor: "Black" | "White") => {
 		setSelectedDiscColor(discColor);
+	};
+
+	const handleSubmit = () => {
+		navigate(`/game/${selectedDifficulty}/${selectedDiscColor}`);
 	};
 
 	return (
@@ -58,7 +64,9 @@ function MainPage() {
 							alt="Black Disc"></img>
 					</div>
 				</div>
-				<button className="submitButton">Submit</button>
+				<button className="submitButton" onClick={handleSubmit}>
+					Submit
+				</button>
 			</div>
 		</>
 	);
