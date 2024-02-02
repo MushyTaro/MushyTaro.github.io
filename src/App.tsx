@@ -1,7 +1,8 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
+import MainPage from "./components/mainPage.tsx";
 function App() {
-	return <></>;
+	return <MainPage />;
 }
 
 ReactDOM.createRoot(document.getElementById("content")!).render(
