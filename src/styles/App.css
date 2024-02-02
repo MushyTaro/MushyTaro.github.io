@@ -21,3 +21,7 @@ body {
 #content {
 	color: white;
 }
+
+button {
+	cursor: pointer;
+}
