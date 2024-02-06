@@ -1,4 +1,4 @@
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import Board from "./gameBoard";
 import "../styles/gamePage.css";
 import ScoreBoard from "./scoreBoard";
@@ -7,9 +7,7 @@ function GamePage() {
 		difficulty?: "Easy" | "Hard";
 		discColor?: "Black" | "White";
 	}>();
-	const navigate = useNavigate();
 	if (!difficulty || !discColor) {
-		navigate("/");
 		return null;
 	}
 	return (
