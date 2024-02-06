@@ -9,8 +9,6 @@
 	background-color: bisque;
 	border: 1px solid grey;
 	display: flex;
-	justify-content: center;
-	align-items: center;
 	padding: 3px;
 }
 .disc {
@@ -36,13 +34,26 @@
 	margin-top: 30px;
 }
 .playerCard,
-.playerDiscCard {
+.computerCard,
+.scoreBoardText {
+	padding: 3px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 100%;
+}
+
+.playerCard {
 	background-color: blueviolet;
 }
-.computerCard,
-.computerDiscCard {
+
+.computerCard {
 	background-color: rgb(42, 41, 43);
 }
+.scoreBoardText {
+	background-color: aqua;
+}
+
 .playerDiscCard,
 .computerDiscCard {
 	position: relative;
@@ -51,21 +62,7 @@
 .computerDiscCard.black {
 	color: black;
 }
-.scoreBoardText {
-	background-color: aqua;
-}
 
-.playerCard,
-.computerCard,
-.computerDiscCard,
-.playerDiscCard,
-.scoreBoardText {
-	padding: 3px;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	height: 100%;
-}
 .centered {
 	position: absolute;
 	top: 50%;

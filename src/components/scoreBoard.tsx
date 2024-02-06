@@ -14,17 +14,19 @@ export default function ScoreBoard({ difficulty, discColor }: ScoreBoardProps) {
 	return (
 		<>
 			<div className="scoreBoard">
-				<div className="playerCard">Player</div>
-				<div className={`playerDiscCard ${playerDiscImage}`}>
+				<div className="playerCard playerNameCard">Player</div>
+				<div className={`playerCard playerDiscCard ${playerDiscImage}`}>
 					<img src={playerDiscImagePath} alt="Disk"></img>
 					<div className="centered">1</div>
 				</div>
 				<span className="scoreBoardText">Scores</span>
-				<div className={`computerDiscCard ${computerDiscImage}`}>
+				<div className={`computerCard computerDiscCard ${computerDiscImage}`}>
 					<img src={computerDiscImagePath} alt="Disk" />
 					<div className="centered">1</div>
 				</div>
-				<div className="computerCard">Computer:{difficulty}</div>
+				<div className="computerCard computerNameCard">
+					Computer:{difficulty}
+				</div>
 			</div>
 		</>
 	);
