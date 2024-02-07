@@ -1,17 +1,19 @@
-.game_page_container {
+.game-page-container {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   height: 100vh;
 }
-.square {
+
+/* -------------------------------- GameBoard -------------------------------------- */
+.gameboard-grid {
   background-color: bisque;
   border: 1px solid grey;
   display: flex;
   padding: 3px;
 }
-.disc {
+.gameboard-grid__disc {
   max-width: 100%;
   max-height: 100%;
   height: auto;
@@ -26,16 +28,18 @@
   gap: 0px;
 }
 
-.scoreBoard {
+/* -------------------------------- ScoreBoard -------------------------------------- */
+
+.score-board {
   display: grid;
   width: 70vw;
   grid-template-columns: 2fr 1fr 1fr 1fr 2fr;
   font-size: 2rem;
   margin-top: 30px;
 }
-.playerCard,
-.computerCard,
-.scoreBoardText {
+.score-board__player,
+.score-board__computer,
+.score-board__text {
   padding: 5px;
   display: flex;
   align-items: center;
@@ -43,23 +47,24 @@
   height: 100%;
 }
 
-.playerCard {
+.score-board__player {
   background-color: blueviolet;
 }
 
-.computerCard {
+.score-board__computer {
   background-color: rgb(138, 109, 29);
 }
-.scoreBoardText {
+.score-board__text {
   background-color: rgb(156, 27, 135);
 }
 
-.playerDiscCard,
-.computerDiscCard {
+.player-disc,
+.computer-disc {
   position: relative;
 }
-.playerDiscCard.black,
-.computerDiscCard.black {
+
+.player-disc.black,
+.computer-disc.black {
   color: black;
 }
 

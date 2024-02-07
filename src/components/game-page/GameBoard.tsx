@@ -1,34 +1,31 @@
-import black_disc_imagePath from "../assets/black-disc.png";
-import white_disc_imagePath from "../assets/white-disc.png";
+import black_disc_imagePath from "../../assets/black-disc.png";
+import white_disc_imagePath from "../../assets/white-disc.png";
+import { DiscColor } from "../../type";
 
-interface SquareProps {
-  value: Disc;
-}
+type GridValue = DiscColor | "";
 
-type Disc = "B" | "W" | "";
-
-function Square({ value }: SquareProps) {
+function Grid({ value }: { value: GridValue }) {
   if (value === "B") {
     return (
-      <div className="square">
-        <img className="disc" src={black_disc_imagePath} alt="Black Disc" />
+      <div className="gameboard-grid">
+        <img className="gameboard-grid__disc" src={black_disc_imagePath} alt="Black Disc" />
       </div>
     );
   }
   if (value === "W") {
     return (
-      <div className="square">
-        <img className="disc" src={white_disc_imagePath} alt="White Disc" />
+      <div className="gameboard-grid">
+        <img className="gameboard-grid__disc" src={white_disc_imagePath} alt="White Disc" />
       </div>
     );
   }
   if (value === "") {
-    return <div className="square" />;
+    return <div className="gameboard-grid" />;
   }
 }
 export default function GameBoard() {
   // Function to render a single row of the board
-  const board: Disc[][] = [
+  const initialBoard: GridValue[][] = [
     ["", "", "", "", "", "", "", ""],
     ["", "", "", "", "", "", "", ""],
     ["", "", "", "", "", "", "", ""],
@@ -39,13 +36,13 @@ export default function GameBoard() {
     ["", "", "", "", "", "", "", ""],
   ];
   return (
-    <>
-      {board.map((row, rowIndex) =>
+    <div className="reversi-board">
+      {initialBoard.map((row, rowIndex) =>
         row.map((value, colIndex) => {
           const index = `${rowIndex}-${colIndex}`;
-          return <Square key={index} value={value} />;
+          return <Grid key={index} value={value} />;
         })
       )}
-    </>
+    </div>
   );
 }

@@ -1,15 +1,13 @@
-import "../styles/MainPage.css";
+import "../../styles/MainPage.css";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import black_disc_imagePath from "../assets/black-disc.png";
-import white_disc_imagePath from "../assets/white-disc.png";
-
-type DiscColor = "Black" | "White";
-type Difficulty = "Easy" | "Hard";
+import black_disc_imagePath from "../../assets/black-disc.png";
+import white_disc_imagePath from "../../assets/white-disc.png";
+import { DiscColor, Difficulty } from "../type";
 
 function MainPage() {
   const [selectedDifficulty, setSelectedDifficulty] = useState<Difficulty>("Easy");
-  const [selectedDiscColor, setSelectedDiscColor] = useState<DiscColor>("White");
+  const [selectedDiscColor, setSelectedDiscColor] = useState<DiscColor>("W");
   const navigate = useNavigate();
 
   const handleDifficulty = (difficulty: Difficulty) => {
@@ -49,11 +47,11 @@ function MainPage() {
         <div
           role="button"
           tabIndex={0}
-          className={`disc-color__button  ${selectedDiscColor === "White" ? "selected" : ""}`}
-          onClick={() => handleDiscColor("White")}
+          className={`disc-color__button  ${selectedDiscColor === "W" ? "selected" : ""}`}
+          onClick={() => handleDiscColor("W")}
           onKeyDown={(event) => {
             if (event.key === "Enter") {
-              setSelectedDiscColor("White");
+              setSelectedDiscColor("W");
             }
           }}
         >
@@ -62,11 +60,11 @@ function MainPage() {
         <div
           role="button"
           tabIndex={0}
-          className={`disc-color__button ${selectedDiscColor === "Black" ? "selected" : ""}`}
-          onClick={() => handleDiscColor("Black")}
+          className={`disc-color__button ${selectedDiscColor === "B" ? "selected" : ""}`}
+          onClick={() => handleDiscColor("B")}
           onKeyDown={(event) => {
             if (event.key === "Enter") {
-              setSelectedDiscColor("Black");
+              setSelectedDiscColor("B");
             }
           }}
         >

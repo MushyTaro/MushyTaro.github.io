@@ -1,21 +1,22 @@
 import { useParams } from "react-router-dom";
+import { Difficulty, DiscColor } from "../../type";
 import Board from "./GameBoard";
-import "../styles/GamePage.css";
+import "../../styles/GamePage.css";
 import ScoreBoard from "./ScoreBoard";
 
 function GamePage() {
   const { difficulty, discColor } = useParams<{
-    difficulty?: "Easy" | "Hard";
-    discColor?: "Black" | "White";
+    difficulty: Difficulty;
+    discColor: DiscColor;
   }>();
   if (!difficulty || !discColor) {
     return null;
   }
   return (
-    <div className="game_page_container">
-        <Board />
-        <ScoreBoard difficulty={difficulty} discColor={discColor} />
-      </div>
+    <div className="game-page-container">
+      <Board />
+      <ScoreBoard difficulty={difficulty} discColor={discColor} />
+    </div>
   );
 }
 
