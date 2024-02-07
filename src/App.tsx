@@ -1,8 +1,8 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import GamePage from "./components/GamePage1";
-import MainPage from "./components/MainPage1";
+import GamePage from "./components/GamePage";
+import MainPage from "./components/MainPage";
 import "./styles/App.css";
 
 const App = () => (
