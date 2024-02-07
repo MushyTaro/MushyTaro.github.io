@@ -1,75 +1,83 @@
 import "../styles/mainPage.css";
-import white_disc_imagePath from "../assets/white-disc.png";
-import black_disc_imagePath from "../assets/black-disc.png";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import black_disc_imagePath from "../assets/black-disc.png";
+import white_disc_imagePath from "../assets/white-disc.png";
+
+type DiscColor = "Black" | "White";
+type Difficulty = "Easy" | "Hard";
 
 function MainPage() {
-	const [selectedDifficulty, setSelectedDifficulty] = useState("Easy");
-	const [selectedDiscColor, setSelectedDiscColor] = useState("White");
-	const navigate = useNavigate();
+  const [selectedDifficulty, setSelectedDifficulty] = useState<Difficulty>("Easy");
+  const [selectedDiscColor, setSelectedDiscColor] = useState<DiscColor>("White");
+  const navigate = useNavigate();
 
-	const handleDifficulty = (difficulty: "Easy" | "Hard") => {
-		setSelectedDifficulty(difficulty);
-	};
-	const handleDiscColor = (discColor: "Black" | "White") => {
-		setSelectedDiscColor(discColor);
-	};
+  const handleDifficulty = (difficulty: Difficulty) => {
+    setSelectedDifficulty(difficulty);
+  };
+  const handleDiscColor = (discColor: DiscColor) => {
+    setSelectedDiscColor(discColor);
+  };
 
-	const handleSubmit = () => {
-		navigate(`/game/${selectedDifficulty}/${selectedDiscColor}`);
-	};
+  const handleSubmit = () => {
+    navigate(`/game/${selectedDifficulty}/${selectedDiscColor}`);
+  };
 
-	return (
-		<>
-			<div className="main_page_container">
-				<h1 className="game_title">Reversi</h1>
-				<div className="difficulty">
-					Difficulty:
-					<button
-						className={`difficultyButton ${
-							selectedDifficulty === "Easy" ? "selected" : ""
-						}`}
-						onClick={() => handleDifficulty("Easy")}>
-						Easy
-					</button>
-					<button
-						className={`difficultyButton ${
-							selectedDifficulty === "Hard" ? "selected" : ""
-						}`}
-						onClick={() => handleDifficulty("Hard")}>
-						Hard
-					</button>
-				</div>
-				<div className="select_disc_color">
-					Play As:
-					<div
-						className={`discColorButtonWrapper ${
-							selectedDiscColor === "White" ? "selected" : ""
-						}`}
-						onClick={() => handleDiscColor("White")}>
-						<img
-							className="discColorButton"
-							src={white_disc_imagePath}
-							alt="White Disc"></img>
-					</div>
-					<div
-						className={`discColorButtonWrapper ${
-							selectedDiscColor === "Black" ? "selected" : ""
-						}`}
-						onClick={() => handleDiscColor("Black")}>
-						<img
-							className="discColorButton"
-							src={black_disc_imagePath}
-							alt="Black Disc"></img>
-					</div>
-				</div>
-				<button className="submitButton" onClick={handleSubmit}>
-					Submit
-				</button>
-			</div>
-		</>
-	);
+  return (
+    <div className="main-page-container">
+      <h1 className="game-title ">Reversi</h1>
+      <div className="difficulty">
+        Difficulty:
+        <button
+          type="button"
+          className={`difficulty__button ${selectedDifficulty === "Easy" ? "selected" : ""}`}
+          onClick={() => handleDifficulty("Easy")}
+        >
+          Easy
+        </button>
+        <button
+          type="button"
+          tabIndex={0}
+          className={`difficulty__button ${selectedDifficulty === "Hard" ? "selected" : ""}`}
+          onClick={() => handleDifficulty("Hard")}
+        >
+          Hard
+        </button>
+      </div>
+      <div className="disc-color">
+        Play As:
+        <div
+          role="button"
+          tabIndex={0}
+          className={`disc-color__button-wrapper  ${selectedDiscColor === "White" ? "selected" : ""}`}
+          onClick={() => handleDiscColor("White")}
+          onKeyDown={(event) => {
+            if (event.key === "Enter") {
+              setSelectedDiscColor(selectedDiscColor === "White" ? "Black" : "White");
+            }
+          }}
+        >
+          <img className="disc-color__button" src={white_disc_imagePath} alt="White Disc" />
+        </div>
+        <div
+          role="button"
+          tabIndex={0}
+          className={`disc-color__button-wrapper ${selectedDiscColor === "Black" ? "selected" : ""}`}
+          onClick={() => handleDiscColor("Black")}
+          onKeyDown={(event) => {
+            if (event.key === "Enter") {
+              setSelectedDiscColor(selectedDiscColor === "White" ? "Black" : "White");
+            }
+          }}
+        >
+          <img className="disc-color__button" src={black_disc_imagePath} alt="Black Disc" />
+        </div>
+      </div>
+      <button type="button" className="submit-button" onClick={handleSubmit}>
+        Submit
+      </button>
+    </div>
+  );
 }
 
 export default MainPage;
