@@ -1,4 +1,4 @@
-import "../styles/MainPage.css";
+import "../styles/MainPage1.css";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import black_disc_imagePath from "../assets/black-disc.png";
