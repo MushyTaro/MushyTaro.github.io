@@ -53,7 +53,7 @@ function MainPage() {
           onClick={() => handleDiscColor("White")}
           onKeyDown={(event) => {
             if (event.key === "Enter") {
-              setSelectedDiscColor(selectedDiscColor === "White" ? "Black" : "White");
+              setSelectedDiscColor("White");
             }
           }}
         >
@@ -66,7 +66,7 @@ function MainPage() {
           onClick={() => handleDiscColor("Black")}
           onKeyDown={(event) => {
             if (event.key === "Enter") {
-              setSelectedDiscColor(selectedDiscColor === "White" ? "Black" : "White");
+              setSelectedDiscColor("Black");
             }
           }}
         >
