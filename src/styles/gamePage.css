@@ -25,7 +25,6 @@
   width: 70vh;
   grid-template-columns: repeat(8, 1fr);
   grid-template-rows: repeat(8, 1fr);
-  gap: 0px;
 }
 
 /* -------------------------------- ScoreBoard -------------------------------------- */
@@ -37,14 +36,14 @@
   font-size: 2rem;
   margin-top: 30px;
 }
+
 .score-board__player,
 .score-board__computer,
 .score-board__text {
-  padding: 5px;
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 100%;
+  padding: 5px;
 }
 
 .score-board__player {
@@ -58,19 +57,11 @@
   background-color: rgb(156, 27, 135);
 }
 
-.player-disc,
-.computer-disc {
-  position: relative;
-}
-
-.player-disc.black,
-.computer-disc.black {
+.score-board__player.black,
+.score-board__computer.black {
   color: black;
 }
 
 .centered {
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
 }
