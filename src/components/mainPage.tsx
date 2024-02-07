@@ -1,4 +1,4 @@
-import "../styles/mainPage.css";
+import "../styles/MainPage.css";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import black_disc_imagePath from "../assets/black-disc.png";
@@ -49,7 +49,7 @@ function MainPage() {
         <div
           role="button"
           tabIndex={0}
-          className={`disc-color__button-wrapper  ${selectedDiscColor === "White" ? "selected" : ""}`}
+          className={`disc-color__button  ${selectedDiscColor === "White" ? "selected" : ""}`}
           onClick={() => handleDiscColor("White")}
           onKeyDown={(event) => {
             if (event.key === "Enter") {
@@ -57,12 +57,12 @@ function MainPage() {
             }
           }}
         >
-          <img className="disc-color__button" src={white_disc_imagePath} alt="White Disc" />
+          <img className="disc-color__button__image" src={white_disc_imagePath} alt="White Disc" />
         </div>
         <div
           role="button"
           tabIndex={0}
-          className={`disc-color__button-wrapper ${selectedDiscColor === "Black" ? "selected" : ""}`}
+          className={`disc-color__button ${selectedDiscColor === "Black" ? "selected" : ""}`}
           onClick={() => handleDiscColor("Black")}
           onKeyDown={(event) => {
             if (event.key === "Enter") {
@@ -70,7 +70,7 @@ function MainPage() {
             }
           }}
         >
-          <img className="disc-color__button" src={black_disc_imagePath} alt="Black Disc" />
+          <img className="disc-color__button__image" src={black_disc_imagePath} alt="Black Disc" />
         </div>
       </div>
       <button type="button" className="submit-button" onClick={handleSubmit}>

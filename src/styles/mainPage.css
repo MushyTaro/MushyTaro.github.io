@@ -30,16 +30,17 @@
   align-items: center;
   justify-content: center;
 }
+
 .disc-color__button {
-  display: block;
-}
-.disc-color__button-wrapper {
   margin: 0 10px;
   padding: 10px;
   cursor: pointer;
 }
-.disc-color__button-wrapper.selected {
+.disc-color__button.selected {
   background-color: yellow;
+}
+.disc-color__button__image {
+  display: block;
 }
 
 .submit-button {
