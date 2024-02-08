@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom";
 import { Difficulty, DiscColor } from "../../types";
 import Board from "./GameBoard";
-import "../../styles/GamePage.css";
+import "../../styles/game-page/GamePage.css";
 import ScoreBoard from "./ScoreBoard";
 
 function GamePage() {

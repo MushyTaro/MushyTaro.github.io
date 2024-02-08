@@ -1,0 +1,36 @@
+.score-board {
+  display: grid;
+  width: 70vw;
+  grid-template-columns: 2fr 1fr 1fr 1fr 2fr;
+  font-size: 2rem;
+  margin-top: 30px;
+}
+
+.score-board__player,
+.score-board__computer,
+.score-board__text {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px;
+}
+
+.score-board__player {
+  background-color: blueviolet;
+}
+
+.score-board__computer {
+  background-color: rgb(138, 109, 29);
+}
+.score-board__text {
+  background-color: rgb(156, 27, 135);
+}
+
+.score-board__player.black,
+.score-board__computer.black {
+  color: black;
+}
+
+.centered {
+  position: absolute;
+}

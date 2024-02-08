@@ -1,6 +1,7 @@
 import black_disc_imagePath from "../../assets/black-disc.png";
 import white_disc_imagePath from "../../assets/white-disc.png";
 import { Difficulty, DiscColor } from "../../types";
+import "../../styles/game-page/ScoreBoard.css";
 
 interface ScoreBoardProps {
   difficulty: Difficulty;
