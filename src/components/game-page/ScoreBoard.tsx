@@ -1,5 +1,3 @@
-import black_disc_imagePath from "../../assets/black-disc.png";
-import white_disc_imagePath from "../../assets/white-disc.png";
 import { Difficulty, DiscColor } from "../../types";
 import "../../styles/game-page/ScoreBoard.css";
 
@@ -9,24 +7,19 @@ interface ScoreBoardProps {
 }
 
 export default function ScoreBoard({ difficulty, discColor }: ScoreBoardProps) {
-  const [playerDiscImagePath, computerDiscImagePath] =
-    discColor === "B" ? [black_disc_imagePath, white_disc_imagePath] : [white_disc_imagePath, black_disc_imagePath];
-
-  const [playerDiscColor, computerDiscColor] = discColor === "W" ? ["black", ""] : ["", "black"];
+  const [playerDiscColor, computerDiscColor] = discColor === "W" ? ["--white", ""] : ["", "--white"];
 
   return (
     <div className="score-board">
-      <div className="score-board__player">Player</div>
-      <div className={`score-board__player ${playerDiscColor}`}>
-        <img src={playerDiscImagePath} alt="ScoreBoard Disk" />
-        <div className="centered">2</div>
+      <div className="score-board__player">
+        Player
+        <div className={`score-board__player__disc score-board__player__disc${playerDiscColor}`}>2</div>
       </div>
       <span className="score-board__text">Scores</span>
-      <div className={`score-board__computer ${computerDiscColor}`}>
-        <img src={computerDiscImagePath} alt="ScoreBoard Disk" />
-        <div className="centered">2</div>
+      <div className="score-board__computer">
+        <div className={`score-board__computer__disc score-board__computer__disc${computerDiscColor}`}>2</div>
+        Computer:{difficulty}
       </div>
-      <div className="score-board__computer">Computer:{difficulty}</div>
     </div>
   );
 }
