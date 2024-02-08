@@ -1,0 +1,59 @@
+.main-page-container {
+  text-align: center;
+}
+.game-title {
+  font-size: 6.5rem;
+}
+.difficulty {
+  font-size: 3rem;
+  margin-bottom: 30px;
+}
+.difficulty__button {
+  margin: 0 20px;
+  opacity: 0.7;
+  padding: 10px 20px;
+  font-size: 2.5rem;
+  font-weight: bold;
+  border: none;
+  border-radius: 5px;
+  background-color: #29bbce;
+  color: #fff;
+}
+
+.difficulty__button--selected {
+  opacity: 1;
+}
+.disc-color {
+  font-size: 3rem;
+  margin-bottom: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.disc-color__button {
+  margin: 0 10px;
+  padding: 10px;
+  cursor: pointer;
+  background-color: transparent;
+  border: 0px;
+}
+.disc-color__button--selected {
+  background-color: yellow;
+}
+.disc-color__button__image {
+  display: block;
+}
+
+.submit-button {
+  padding: 10px 20px;
+  font-size: 2.5rem;
+  font-weight: bold;
+  border: none;
+  border-radius: 5px;
+  background-color: #29bbce;
+  color: #fff;
+}
+.submit-button:hover {
+  background-color: #2980b9;
+}
