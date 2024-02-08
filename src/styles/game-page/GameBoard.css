@@ -3,6 +3,8 @@
   border: 1px solid grey;
   display: flex;
   padding: 3px;
+  align-items: center;
+  justify-content: center;
 }
 .gameboard-grid__disc {
   max-width: 100%;
@@ -14,4 +16,9 @@
   width: 70vh;
   grid-template-columns: repeat(8, 1fr);
   grid-template-rows: repeat(8, 1fr);
+}
+
+.gameboard-grid__indicator {
+  max-width: 40%;
+  max-height: 40%;
 }
