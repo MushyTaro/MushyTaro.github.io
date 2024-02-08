@@ -28,7 +28,8 @@ function MainPage() {
         Difficulty:
         <button
           type="button"
-          className={`difficulty__button ${selectedDifficulty === "Easy" ? "selected" : ""}`}
+          tabIndex={0}
+          className={`difficulty__button difficulty__button${selectedDifficulty === "Easy" ? "--selected" : ""}`}
           onClick={() => handleDifficulty("Easy")}
         >
           Easy
@@ -36,7 +37,7 @@ function MainPage() {
         <button
           type="button"
           tabIndex={0}
-          className={`difficulty__button ${selectedDifficulty === "Hard" ? "selected" : ""}`}
+          className={`difficulty__button difficulty__button${selectedDifficulty === "Hard" ? "--selected" : ""}`}
           onClick={() => handleDifficulty("Hard")}
         >
           Hard
@@ -44,32 +45,22 @@ function MainPage() {
       </div>
       <div className="disc-color">
         Play As:
-        <div
-          role="button"
+        <button
+          type="button"
           tabIndex={0}
-          className={`disc-color__button  ${selectedDiscColor === "W" ? "selected" : ""}`}
+          className={`disc-color__button  disc-color__button${selectedDiscColor === "W" ? "--selected" : ""}`}
           onClick={() => handleDiscColor("W")}
-          onKeyDown={(event) => {
-            if (event.key === "Enter") {
-              setSelectedDiscColor("W");
-            }
-          }}
         >
           <img className="disc-color__button__image" src={white_disc_imagePath} alt="White Disc" />
-        </div>
-        <div
-          role="button"
+        </button>
+        <button
+          type="button"
           tabIndex={0}
-          className={`disc-color__button ${selectedDiscColor === "B" ? "selected" : ""}`}
+          className={`disc-color__button disc-color__button${selectedDiscColor === "B" ? "--selected" : ""}`}
           onClick={() => handleDiscColor("B")}
-          onKeyDown={(event) => {
-            if (event.key === "Enter") {
-              setSelectedDiscColor("B");
-            }
-          }}
         >
           <img className="disc-color__button__image" src={black_disc_imagePath} alt="Black Disc" />
-        </div>
+        </button>
       </div>
       <button type="button" className="submit-button" onClick={handleSubmit}>
         Submit
