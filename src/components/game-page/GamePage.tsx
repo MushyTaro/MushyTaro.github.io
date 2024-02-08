@@ -18,6 +18,7 @@ function GamePage() {
   initialBoard[4][4] = "W";
   initialBoard[3][4] = "B";
   initialBoard[4][3] = "B";
+
   const playerTurn = discColor;
 
   const board = markValidMoves(playerTurn, initialBoard);

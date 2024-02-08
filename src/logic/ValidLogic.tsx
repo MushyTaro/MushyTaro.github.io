@@ -1,8 +1,8 @@
-import { GridValue } from "../types";
+import { DiscColor, GridValue } from "../types";
 
-export function checkValid(row: number, col: number, disc: GridValue, board: GridValue[][]) {
+export function checkValid(row: number, col: number, currentDiscColor: DiscColor, board: GridValue[][]) {
   const boardCopy: GridValue[][] = board.map((rowCopy) => [...rowCopy]);
-  boardCopy[row][col] = disc;
+  boardCopy[row][col] = currentDiscColor;
   const discsToFlip: { row: number; col: number }[] = [];
   for (let rowDelta = -1; rowDelta <= 1; rowDelta += 1) {
     for (let colDelta = -1; colDelta <= 1; colDelta += 1) {
@@ -17,7 +17,7 @@ export function checkValid(row: number, col: number, disc: GridValue, board: Gri
           currentCol < boardCopy[currentRow].length &&
           boardCopy[currentRow][currentCol] !== "" &&
           boardCopy[currentRow][currentCol] !== "V" &&
-          boardCopy[currentRow][currentCol] !== disc
+          boardCopy[currentRow][currentCol] !== currentDiscColor
         ) {
           tempDisc.push({ row: currentRow, col: currentCol });
           currentRow += rowDelta;
@@ -28,7 +28,7 @@ export function checkValid(row: number, col: number, disc: GridValue, board: Gri
           currentRow < boardCopy.length &&
           currentCol >= 0 &&
           currentCol < boardCopy[currentRow].length &&
-          boardCopy[currentRow][currentCol] === disc &&
+          boardCopy[currentRow][currentCol] === currentDiscColor &&
           tempDisc.length > 0
         ) {
           tempDisc.forEach((discToFlip) => {
@@ -41,7 +41,7 @@ export function checkValid(row: number, col: number, disc: GridValue, board: Gri
   return discsToFlip;
 }
 
-export function markValidMoves(player: GridValue, board: GridValue[][]): GridValue[][] {
+export function markValidMoves(currentDiscColor: DiscColor, board: GridValue[][]): GridValue[][] {
   const boardCopy: GridValue[][] = board.map((rowCopy) => [...rowCopy]);
 
   for (let row = 0; row < board.length; row += 1) {
@@ -50,7 +50,7 @@ export function markValidMoves(player: GridValue, board: GridValue[][]): GridVal
         boardCopy[row][col] = "";
       }
       if (board[row][col] === "") {
-        const isValidMove = checkValid(row, col, player, board);
+        const isValidMove = checkValid(row, col, currentDiscColor, board);
         if (isValidMove.length) {
           boardCopy[row][col] = "V";
         }
