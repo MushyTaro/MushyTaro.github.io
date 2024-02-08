@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import black_disc_imagePath from "../assets/black-disc.png";
 import white_disc_imagePath from "../assets/white-disc.png";
-import { DiscColor, Difficulty } from "../type";
+import { DiscColor, Difficulty } from "../types";
 
 function MainPage() {
   const [selectedDifficulty, setSelectedDifficulty] = useState<Difficulty>("Easy");

@@ -1,6 +1,6 @@
 import black_disc_imagePath from "../../assets/black-disc.png";
 import white_disc_imagePath from "../../assets/white-disc.png";
-import { DiscColor } from "../../type";
+import { DiscColor } from "../../types";
 
 type GridValue = DiscColor | "";
 

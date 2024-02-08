@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import { Difficulty, DiscColor } from "../../type";
+import { Difficulty, DiscColor } from "../../types";
 import Board from "./GameBoard";
 import "../../styles/GamePage.css";
 import ScoreBoard from "./ScoreBoard";
