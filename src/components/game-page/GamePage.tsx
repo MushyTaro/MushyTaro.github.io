@@ -47,7 +47,7 @@ function GamePage() {
   return (
     <div className="game-page-container">
       <Board board={board} playerTurn={currentPlayer} onBoardPlay={updateGame} />
-      <ScoreBoard difficulty={difficulty} discColor={discColor} />
+      <ScoreBoard difficulty={difficulty} discColor={discColor} currentPlayer={currentPlayer} />
     </div>
   );
 }
