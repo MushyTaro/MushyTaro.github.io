@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useParams } from "react-router-dom";
+import CalculateScore from "../../logic/CalculateScore";
 import { markValidMoves } from "../../logic/ValidLogic";
 import { Difficulty, DiscColor, GridValue } from "../../types";
 import Board from "./GameBoard";
@@ -22,14 +23,15 @@ function GamePage() {
   initialBoard[centerRow][centerCol - 1] = "B";
 
   const [board, setBoard] = useState<GridValue[][]>(markValidMoves(discColor, initialBoard));
-
+  const [score, setScore] = useState([2, 2]);
   const updateBoard = (updatedBoard: GridValue[][]) => {
     setBoard(markValidMoves(discColor, updatedBoard));
+    setScore(CalculateScore({ board: updatedBoard, playerColor: discColor }));
   };
   return (
     <div className="game-page-container">
       <Board board={board} playerTurn={discColor} onBoardPlay={updateBoard} />
-      <ScoreBoard difficulty={difficulty} discColor={discColor} />
+      <ScoreBoard difficulty={difficulty} discColor={discColor} score={score} />
     </div>
   );
 }
