@@ -14,10 +14,13 @@ function GamePage() {
     return null;
   }
   const initialBoard: GridValue[][] = Array.from({ length: 8 }, () => Array(8).fill(""));
-  initialBoard[3][3] = "W";
-  initialBoard[4][4] = "W";
-  initialBoard[3][4] = "B";
-  initialBoard[4][3] = "B";
+  const centerRow = Math.floor(initialBoard.length / 2);
+  const centerCol = Math.floor(initialBoard[0].length / 2);
+
+  initialBoard[centerRow - 1][centerCol - 1] = "W";
+  initialBoard[centerRow][centerCol] = "W";
+  initialBoard[centerRow - 1][centerCol] = "B";
+  initialBoard[centerRow][centerCol - 1] = "B";
 
   const playerTurn = discColor;
 
