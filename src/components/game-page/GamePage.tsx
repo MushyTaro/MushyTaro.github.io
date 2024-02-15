@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useParams } from "react-router-dom";
 import { markValidMoves } from "../../logic/ValidLogic";
 import { Difficulty, DiscColor, GridValue } from "../../types";
@@ -6,13 +7,11 @@ import "../../styles/game-page/GamePage.css";
 import ScoreBoard from "./ScoreBoard";
 
 function GamePage() {
-  const { difficulty, discColor } = useParams<{
+  const { difficulty = "Easy", discColor = "W" } = useParams<{
     difficulty: Difficulty;
     discColor: DiscColor;
   }>();
-  if (!difficulty || !discColor) {
-    return null;
-  }
+
   const initialBoard: GridValue[][] = Array.from({ length: 8 }, () => Array(8).fill(""));
   const centerRow = Math.floor(initialBoard.length / 2);
   const centerCol = Math.floor(initialBoard[0].length / 2);
@@ -22,12 +21,14 @@ function GamePage() {
   initialBoard[centerRow - 1][centerCol] = "B";
   initialBoard[centerRow][centerCol - 1] = "B";
 
-  const playerTurn = discColor;
+  const [board, setBoard] = useState<GridValue[][]>(markValidMoves(discColor, initialBoard));
 
-  const board = markValidMoves(playerTurn, initialBoard);
+  const updateBoard = (updatedBoard: GridValue[][]) => {
+    setBoard(markValidMoves(discColor, updatedBoard));
+  };
   return (
     <div className="game-page-container">
-      <Board board={board} />
+      <Board board={board} playerTurn={discColor} onBoardPlay={updateBoard} />
       <ScoreBoard difficulty={difficulty} discColor={discColor} />
     </div>
   );

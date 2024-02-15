@@ -1,17 +1,24 @@
 import black_disc_imagePath from "../../assets/black-disc.png";
 import green_dot_imagePath from "../../assets/green-dot.png";
 import white_disc_imagePath from "../../assets/white-disc.png";
-import { GridValue } from "../../types";
+import { checkValid } from "../../logic/ValidLogic";
+import { DiscColor, GridValue } from "../../types";
 import "../../styles/game-page/GameBoard.css";
 
-function Grid({ value }: { value: GridValue }) {
+interface BoardProps {
+  board: GridValue[][];
+  playerTurn: DiscColor;
+  onBoardPlay: (board: GridValue[][]) => void;
+}
+
+function Grid({ value, onSquareClick }: { value: GridValue; onSquareClick: () => void }) {
   if (value === "") {
     return <div className="gameboard-grid" />;
   }
   return value === "V" ? (
-    <div className="gameboard-grid">
+    <button type="button" className="gameboard-grid" onClick={onSquareClick}>
       <img className="gameboard-grid__indicator" src={green_dot_imagePath} alt="Valid Move Indicator" />
-    </div>
+    </button>
   ) : (
     <div className="gameboard-grid">
       <img
@@ -22,13 +29,24 @@ function Grid({ value }: { value: GridValue }) {
     </div>
   );
 }
-export default function GameBoard({ board }: { board: GridValue[][] }) {
+
+export default function GameBoard({ board, playerTurn, onBoardPlay }: BoardProps) {
+  function handleClick(row: number, col: number) {
+    const boardCopy: GridValue[][] = board.map((rowCopy) => [...rowCopy]);
+    const discsToFlip = checkValid(row, col, playerTurn, board);
+    boardCopy[row][col] = playerTurn;
+    discsToFlip.forEach((discToFlip) => {
+      boardCopy[discToFlip.row][discToFlip.col] = playerTurn;
+    });
+    onBoardPlay(boardCopy);
+  }
+
   return (
     <div className="reversi-board">
       {board.map((row, rowIndex) =>
         row.map((value, colIndex) => {
           const index = `${rowIndex}-${colIndex}`;
-          return <Grid key={index} value={value} />;
+          return <Grid key={index} value={value} onSquareClick={() => handleClick(rowIndex, colIndex)} />;
         })
       )}
     </div>
