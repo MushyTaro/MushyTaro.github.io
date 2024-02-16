@@ -3,13 +3,11 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import black_disc_imagePath from "../assets/black-disc.png";
 import white_disc_imagePath from "../assets/white-disc.png";
-
-type DiscColor = "Black" | "White";
-type Difficulty = "Easy" | "Hard";
+import { DiscColor, Difficulty } from "../types";
 
 function MainPage() {
   const [selectedDifficulty, setSelectedDifficulty] = useState<Difficulty>("Easy");
-  const [selectedDiscColor, setSelectedDiscColor] = useState<DiscColor>("White");
+  const [selectedDiscColor, setSelectedDiscColor] = useState<DiscColor>("W");
   const navigate = useNavigate();
 
   const handleDifficulty = (difficulty: Difficulty) => {
@@ -50,16 +48,16 @@ function MainPage() {
         <button
           type="button"
           tabIndex={0}
-          className={`disc-color__button  disc-color__button${selectedDiscColor === "White" ? "--selected" : ""}`}
-          onClick={() => handleDiscColor("White")}
+          className={`disc-color__button  disc-color__button${selectedDiscColor === "W" ? "--selected" : ""}`}
+          onClick={() => handleDiscColor("W")}
         >
           <img className="disc-color__button__image" src={white_disc_imagePath} alt="White Disc" />
         </button>
         <button
           type="button"
           tabIndex={0}
-          className={`disc-color__button disc-color__button${selectedDiscColor === "Black" ? "--selected" : ""}`}
-          onClick={() => handleDiscColor("Black")}
+          className={`disc-color__button disc-color__button${selectedDiscColor === "B" ? "--selected" : ""}`}
+          onClick={() => handleDiscColor("B")}
         >
           <img className="disc-color__button__image" src={black_disc_imagePath} alt="Black Disc" />
         </button>

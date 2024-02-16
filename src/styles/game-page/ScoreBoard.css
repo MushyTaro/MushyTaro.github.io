@@ -1,0 +1,47 @@
+.score-board {
+  display: grid;
+  width: 70vw;
+  height: 12vh;
+  grid-template-columns: 2fr 1fr 2fr;
+  font-size: 2rem;
+  margin-top: 30px;
+}
+
+.score-board__player,
+.score-board__computer,
+.score-board__text {
+  display: flex;
+  align-items: center;
+  padding: 5px 15px;
+}
+
+.score-board__player {
+  justify-content: space-between;
+  background-color: blueviolet;
+}
+
+.score-board__computer {
+  justify-content: space-between;
+  background-color: rgb(138, 109, 29);
+}
+.score-board__text {
+  justify-content: center;
+  background-color: rgb(156, 27, 135);
+}
+
+.score-board__player__disc,
+.score-board__computer__disc {
+  height: 90%;
+  aspect-ratio: 1/1;
+  border-radius: 50%;
+  background-color: black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.score-board__player__disc--white,
+.score-board__computer__disc--white {
+  background-color: white;
+  color: black;
+}
