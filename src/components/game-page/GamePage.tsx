@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { useParams } from "react-router-dom";
-import { markValidMoves } from "../../logic/ValidLogic";
+import { markValidMoves } from "../../logic/validLogic";
 import { Difficulty, DiscColor, GridValue } from "../../types";
-import Board from "./GameBoard";
+import GameBoard from "./GameBoard";
 import "../../styles/game-page/GamePage.css";
 import ScoreBoard from "./ScoreBoard";
 
@@ -28,7 +28,7 @@ function GamePage() {
   };
   return (
     <div className="game-page-container">
-      <Board board={board} playerTurn={discColor} onBoardPlay={updateBoard} />
+      <GameBoard board={board} playerTurn={discColor} onBoardPlay={updateBoard} />
       <ScoreBoard difficulty={difficulty} discColor={discColor} />
     </div>
   );

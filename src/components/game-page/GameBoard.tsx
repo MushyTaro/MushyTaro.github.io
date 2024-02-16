@@ -1,7 +1,7 @@
 import black_disc_imagePath from "../../assets/black-disc.png";
 import green_dot_imagePath from "../../assets/green-dot.png";
 import white_disc_imagePath from "../../assets/white-disc.png";
-import { checkValid } from "../../logic/ValidLogic";
+import { checkValid } from "../../logic/validLogic";
 import { DiscColor, GridValue } from "../../types";
 import "../../styles/game-page/GameBoard.css";
 
