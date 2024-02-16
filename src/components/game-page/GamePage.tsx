@@ -22,7 +22,7 @@ function GamePage() {
   initialBoard[centerRow - 1][centerCol] = "B";
   initialBoard[centerRow][centerCol - 1] = "B";
 
-  const [board, setBoard] = useState<GridValue[][]>(markValidMoves(discColor, initialBoard));
+  const [board, setBoard] = useState<GridValue[][]>(markValidMoves("B", initialBoard));
   const [currentPlayer, setCurrentPlayer] = useState<DiscColor>("B");
   const [popupVisible, setPopupVisible] = useState(false);
   const [popupMessage, setPopupMessage] = useState<string>("");
