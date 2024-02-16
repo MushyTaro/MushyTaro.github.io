@@ -2,9 +2,9 @@ import { useState } from "react";
 import { useParams } from "react-router-dom";
 import { HandleTurn } from "../../logic/HandleTurn";
 import { markValidMoves } from "../../logic/ValidLogic";
-import { Difficulty, DiscColor, GridValue } from "../../types";
-import Popup from "../Popup";
+import { Difficulty, DiscColor, GridValue, MessageType } from "../../types";
 import Board from "./GameBoard";
+import Popup from "./Popup";
 import "../../styles/game-page/GamePage.css";
 import ScoreBoard from "./ScoreBoard";
 
@@ -25,25 +25,17 @@ function GamePage() {
   const [board, setBoard] = useState<GridValue[][]>(markValidMoves("B", initialBoard));
   const [currentPlayer, setCurrentPlayer] = useState<DiscColor>("B");
   const [popupVisible, setPopupVisible] = useState(false);
-  const [popupMessage, setPopupMessage] = useState<string>("");
+  const [popupMessage, setPopupMessage] = useState<MessageType>("");
   const closePopup = () => {
     setPopupVisible(false);
   };
 
   const updateGame = (updatedBoard: GridValue[][]) => {
     const { nextUpdatedBoard, nextPlayer, message } = HandleTurn({ updatedBoard, currentPlayer, discColor });
-    if (message === "skip") {
-      const skipMessage =
-        currentPlayer === discColor
-          ? "Computer turn has been skipped due to no valid moves"
-          : "Player turn has been skipped due to no valid moves";
-      setPopupMessage(skipMessage);
+    if (message !== "") {
+      setPopupMessage(message);
       setPopupVisible(true);
       setBoard(nextUpdatedBoard);
-    } else if (message === "end") {
-      setBoard(nextUpdatedBoard);
-      setPopupMessage("The game has ended");
-      setPopupVisible(true);
     } else {
       setCurrentPlayer(nextPlayer);
       setBoard(nextUpdatedBoard);
@@ -54,7 +46,7 @@ function GamePage() {
     <div className="game-page-container">
       <Board board={board} playerTurn={currentPlayer} onBoardPlay={updateGame} />
       <ScoreBoard difficulty={difficulty} discColor={discColor} currentPlayer={currentPlayer} />
-      <Popup show={popupVisible} onClose={closePopup} messageContent={popupMessage} />
+      <Popup show={popupVisible} messageType={popupMessage} onClose={closePopup} />
     </div>
   );
 }

@@ -11,7 +11,7 @@ interface HandleTurnOutput {
   nextPlayer: DiscColor;
   message: MessageType;
 }
-export function HandleTurn({ updatedBoard, currentPlayer }: HandleTurnInputs): HandleTurnOutput {
+export function HandleTurn({ updatedBoard, currentPlayer, discColor }: HandleTurnInputs): HandleTurnOutput {
   const updatedBoardCopy: GridValue[][] = updatedBoard.map((rowCopy) => [...rowCopy]);
   let nextPlayer: DiscColor = currentPlayer === "B" ? "W" : "B";
   let markedUpdatedBoard = markValidMoves(nextPlayer, updatedBoardCopy);
@@ -19,15 +19,19 @@ export function HandleTurn({ updatedBoard, currentPlayer }: HandleTurnInputs): H
   const isBoardNotFull = markedUpdatedBoard.some((row) => row.includes(""));
   if (!containsValidMoves && !isBoardNotFull) {
     return { nextUpdatedBoard: markedUpdatedBoard, nextPlayer, message: "end" };
-  } if (!containsValidMoves && isBoardNotFull) {
+  }
+  if (!containsValidMoves && isBoardNotFull) {
     nextPlayer = currentPlayer === "B" ? "B" : "W";
     markedUpdatedBoard = markValidMoves(nextPlayer, updatedBoardCopy);
     containsValidMoves = markedUpdatedBoard.some((row) => row.includes("V"));
     if (!containsValidMoves) {
       return { nextUpdatedBoard: markedUpdatedBoard, nextPlayer, message: "end" };
-    } 
-      return { nextUpdatedBoard: markedUpdatedBoard, nextPlayer, message: "skip" };
-    
+    }
+    return {
+      nextUpdatedBoard: markedUpdatedBoard,
+      nextPlayer,
+      message: currentPlayer === discColor ? "skip computer" : "skip player",
+    };
   }
   return { nextUpdatedBoard: markedUpdatedBoard, nextPlayer, message: "" };
 }
