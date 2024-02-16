@@ -33,9 +33,10 @@ function GamePage() {
   const updateGame = (updatedBoard: GridValue[][]) => {
     const { nextUpdatedBoard, nextPlayer, message } = HandleTurn({ updatedBoard, currentPlayer, discColor });
     if (message === "skip") {
-      const skipPlayer = currentPlayer === "B" ? "W" : "B";
-      setBoard(markValidMoves(skipPlayer, updatedBoard));
-      const skipMessage = currentPlayer === discColor ? "Computer has been skipped" : "Player has been skipped";
+      const skipMessage =
+        currentPlayer === discColor
+          ? "Computer turn has been skipped due to no valid moves"
+          : "Player turn has been skipped due to no valid moves";
       setPopupMessage(skipMessage);
       setPopupVisible(true);
       setBoard(nextUpdatedBoard);
