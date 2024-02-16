@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom";
-import { markValidMoves } from "../../logic/ValidLogic";
+import { markValidMoves } from "../../logic/validLogic";
 import { Difficulty, DiscColor, GridValue } from "../../types";
-import Board from "./GameBoard";
+import GameBoard from "./GameBoard";
 import "../../styles/game-page/GamePage.css";
 import ScoreBoard from "./ScoreBoard";
 
@@ -13,6 +13,7 @@ function GamePage() {
   if (!difficulty || !discColor) {
     return null;
   }
+
   const initialBoard: GridValue[][] = Array.from({ length: 8 }, () => Array(8).fill(""));
   const centerRow = Math.floor(initialBoard.length / 2);
   const centerCol = Math.floor(initialBoard[0].length / 2);
@@ -27,7 +28,7 @@ function GamePage() {
   const board = markValidMoves(playerTurn, initialBoard);
   return (
     <div className="game-page-container">
-      <Board board={board} />
+      <GameBoard board={board} />
       <ScoreBoard difficulty={difficulty} discColor={discColor} />
     </div>
   );
