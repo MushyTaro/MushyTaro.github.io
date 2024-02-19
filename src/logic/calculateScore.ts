@@ -5,7 +5,7 @@ interface CalculateScoreInputs {
   playerColor: DiscColor;
 }
 
-export default function CalculateScore({ board, playerColor }: CalculateScoreInputs) {
+export default function calculateScore({ board, playerColor }: CalculateScoreInputs): number[] {
   let blackCount = 0;
   let whiteCount = 0;
 

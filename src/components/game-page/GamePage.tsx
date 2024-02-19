@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useParams } from "react-router-dom";
-import CalculateScore from "../../logic/CalculateScore";
+import calculateScore from "../../logic/calculateScore";
 import { markValidMoves } from "../../logic/validLogic";
 import { Difficulty, DiscColor, GridValue } from "../../types";
 import GameBoard from "./GameBoard";
@@ -26,7 +26,7 @@ function GamePage(): JSX.Element {
   const [score, setScore] = useState([2, 2]);
   const updateBoard = (updatedBoard: GridValue[][]) => {
     setBoard(markValidMoves(discColor, updatedBoard));
-    setScore(CalculateScore({ board: updatedBoard, playerColor: discColor }));
+    setScore(calculateScore({ board: updatedBoard, playerColor: discColor }));
   };
   return (
     <div className="game-page-container">
