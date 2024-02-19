@@ -4,22 +4,20 @@ import white_disc_imagePath from "../../assets/white-disc.png";
 import { GridValue } from "../../types";
 import "../../styles/game-page/GameBoard.css";
 
-function Grid({ value }: { value: GridValue }) {
-  if (value === "") {
-    return <div className="gameboard-grid" />;
-  }
-  const imagePath = value === "V" ? green_dot_imagePath : value === "W" ? white_disc_imagePath : black_disc_imagePath;
-  const altText = value === "V" ? "Valid Move Indicator" : `${value === "W" ? "White" : "Black"} Disc`;
-
+function Grid({ value }: { value: GridValue }): JSX.Element {
   return (
-    <img
-      className={value === "V" ? "gameboard-grid__indicator" : "gameboard-grid__disc"}
-      src={imagePath}
-      alt={altText}
-    />
+    <div className="gameboard-grid">
+      {value !== "" && (
+        <img
+          className={value === "V" ? "gameboard-grid__indicator" : "gameboard-grid__disc"}
+          src={value === "V" ? green_dot_imagePath : value === "W" ? white_disc_imagePath : black_disc_imagePath}
+          alt={value === "V" ? "Valid Move Indicator" : `${value === "W" ? "White" : "Black"} Disc`}
+        />
+      )}
+    </div>
   );
 }
-export default function GameBoard({ board }: { board: GridValue[][] }) {
+export default function GameBoard({ board }: { board: GridValue[][] }): JSX.Element {
   return (
     <div className="reversi-board">
       {board.map((row, rowIndex) =>

@@ -5,11 +5,12 @@ import GameBoard from "./GameBoard";
 import "../../styles/game-page/GamePage.css";
 import ScoreBoard from "./ScoreBoard";
 
-function GamePage() {
+function GamePage(): JSX.Element | null {
   const { difficulty, discColor } = useParams<{
     difficulty: Difficulty;
     discColor: DiscColor;
   }>();
+
   if (!difficulty || !discColor) {
     return null;
   }
@@ -23,9 +24,7 @@ function GamePage() {
   initialBoard[centerRow - 1][centerCol] = "B";
   initialBoard[centerRow][centerCol - 1] = "B";
 
-  const playerTurn = discColor;
-
-  const board = markValidMoves(playerTurn, initialBoard);
+  const board = markValidMoves(discColor, initialBoard);
   return (
     <div className="game-page-container">
       <GameBoard board={board} />
