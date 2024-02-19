@@ -16,7 +16,7 @@ function GamePage(): JSX.Element {
   const initialBoard: GridValue[][] = Array.from({ length: 8 }, () => Array(8).fill(""));
   const centerRow = Math.floor(initialBoard.length / 2);
   const centerCol = Math.floor(initialBoard[0].length / 2);
-
+  console.log(initialBoard);
   initialBoard[centerRow - 1][centerCol - 1] = "W";
   initialBoard[centerRow][centerCol] = "W";
   initialBoard[centerRow - 1][centerCol] = "B";
@@ -27,6 +27,7 @@ function GamePage(): JSX.Element {
   const updateBoard = (updatedBoard: GridValue[][]) => {
     setBoard(markValidMoves(discColor, updatedBoard));
     setScore(calculateScore({ board: updatedBoard, playerColor: discColor }));
+    console.log(updatedBoard);
   };
   return (
     <div className="game-page-container">

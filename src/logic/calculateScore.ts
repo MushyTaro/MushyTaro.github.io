@@ -6,18 +6,9 @@ interface CalculateScoreInputs {
 }
 
 export default function calculateScore({ board, playerColor }: CalculateScoreInputs): number[] {
-  let blackCount = 0;
-  let whiteCount = 0;
-
-  for (let row = 0; row < board.length; row += 1) {
-    for (let col = 0; col < board[row].length; col += 1) {
-      if (board[row][col] === "B") {
-        blackCount += 1;
-      } else if (board[row][col] === "W") {
-        whiteCount += 1;
-      }
-    }
-  }
+  const flattenedBoard = board.flat();
+  const blackCount = flattenedBoard.filter((piece) => piece === "B").length;
+  const whiteCount = flattenedBoard.filter((piece) => piece === "W").length;
   const scores = playerColor === "W" ? [whiteCount, blackCount] : [blackCount, whiteCount];
   return scores;
 }
