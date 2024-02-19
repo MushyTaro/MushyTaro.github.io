@@ -5,19 +5,19 @@ import black_disc_imagePath from "../assets/black-disc.png";
 import white_disc_imagePath from "../assets/white-disc.png";
 import { DiscColor, Difficulty } from "../types";
 
-function MainPage() {
+function MainPage(): JSX.Element {
   const [selectedDifficulty, setSelectedDifficulty] = useState<Difficulty>("Easy");
   const [selectedDiscColor, setSelectedDiscColor] = useState<DiscColor>("W");
   const navigate = useNavigate();
 
-  const handleDifficulty = (difficulty: Difficulty) => {
+  const handleDifficulty = (difficulty: Difficulty): void => {
     setSelectedDifficulty(difficulty);
   };
-  const handleDiscColor = (discColor: DiscColor) => {
+  const handleDiscColor = (discColor: DiscColor): void => {
     setSelectedDiscColor(discColor);
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = (): void => {
     navigate(`/game/${selectedDifficulty}/${selectedDiscColor}`);
   };
 

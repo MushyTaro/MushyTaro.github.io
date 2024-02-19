@@ -6,7 +6,7 @@ import GameBoard from "./GameBoard";
 import "../../styles/game-page/GamePage.css";
 import ScoreBoard from "./ScoreBoard";
 
-function GamePage() {
+function GamePage(): JSX.Element {
   const { difficulty = "Easy", discColor = "W" } = useParams<{
     difficulty: Difficulty;
     discColor: DiscColor;
