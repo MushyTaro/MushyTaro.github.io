@@ -7,7 +7,7 @@ module.exports = {
   },
   plugins: ["@typescript-eslint"],
   extends: ["airbnb", "airbnb-typescript", "next", "next/core-web-vitals", "prettier"],
-  ignorePatterns: ["out/**/*"],
+  ignorePatterns: ["out/**/*", ".eslintrc.cjs"],
   rules: {
     "@next/next/no-img-element": "warn",
     "@typescript-eslint/no-explicit-any": "error",
@@ -21,7 +21,7 @@ module.exports = {
      * https://github.com/typescript-eslint/typescript-eslint/issues/1277
      */
     "consistent-return": "off",
-    "import/no-extraneous-dependencies": ["error", { devDependencies: ["**/*.stories.tsx"] }],
+    "import/no-extraneous-dependencies": ["error", { devDependencies: ["**/*.stories.tsx", "vite.config.ts"] }],
     "import/order": [
       "error",
       {

@@ -1,14 +1,22 @@
 import { DiscColor, GridValue } from "../types";
 
-export function checkValid(row: number, col: number, currentDiscColor: DiscColor, board: GridValue[][]) {
+interface GridPosition {
+  row: number;
+  col: number;
+}
+
+export function getDiscsToFlip(
+  GridPosition: GridPosition,
+  currentDiscColor: DiscColor,
+  board: GridValue[][]
+): GridPosition[] {
   const boardCopy: GridValue[][] = board.map((rowCopy) => [...rowCopy]);
-  boardCopy[row][col] = currentDiscColor;
   const discsToFlip: { row: number; col: number }[] = [];
   for (let rowDelta = -1; rowDelta <= 1; rowDelta += 1) {
     for (let colDelta = -1; colDelta <= 1; colDelta += 1) {
       if (!(rowDelta === 0 && colDelta === 0)) {
-        let currentRow = row + rowDelta;
-        let currentCol = col + colDelta;
+        let currentRow = GridPosition.row + rowDelta;
+        let currentCol = GridPosition.col + colDelta;
         const tempDisc: { row: number; col: number }[] = [];
         while (
           currentRow >= 0 &&
@@ -47,8 +55,8 @@ export function markValidMoves(currentDiscColor: DiscColor, board: GridValue[][]
   for (let row = 0; row < board.length; row += 1) {
     for (let col = 0; col < board[row].length; col += 1) {
       if (board[row][col] === "" || board[row][col] === "V") {
-        const isValidMove = checkValid(row, col, currentDiscColor, board);
-        if (isValidMove.length) {
+        const discsToFlip = getDiscsToFlip({ row, col }, currentDiscColor, board);
+        if (discsToFlip.length) {
           boardCopy[row][col] = "V";
         } else if (board[row][col] === "V") {
           boardCopy[row][col] = "";
