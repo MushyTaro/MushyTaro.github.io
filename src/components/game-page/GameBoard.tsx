@@ -19,7 +19,6 @@ function Grid({ value, onSquareClick }: { value: GridValue; onSquareClick: () =>
       </button>
     );
   }
-
   return (
     <div className="gameboard-grid">
       {value !== "" && (

@@ -23,7 +23,7 @@ function GamePage(): JSX.Element {
 
   const [board, setBoard] = useState<GridValue[][]>(markValidMoves(discColor, initialBoard));
 
-  const updateBoard = (updatedBoard: GridValue[][]) => {
+  const updateBoard = (updatedBoard: GridValue[][]): void => {
     setBoard(markValidMoves(discColor, updatedBoard));
   };
   return (
