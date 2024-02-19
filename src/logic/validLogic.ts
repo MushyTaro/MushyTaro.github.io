@@ -1,8 +1,7 @@
 import { DiscColor, GridValue } from "../types";
 
-export function checkValid(row: number, col: number, currentDiscColor: DiscColor, board: GridValue[][]) {
+export function getDiscsToFlip(row: number, col: number, currentDiscColor: DiscColor, board: GridValue[][]) {
   const boardCopy: GridValue[][] = board.map((rowCopy) => [...rowCopy]);
-  boardCopy[row][col] = currentDiscColor;
   const discsToFlip: { row: number; col: number }[] = [];
   for (let rowDelta = -1; rowDelta <= 1; rowDelta += 1) {
     for (let colDelta = -1; colDelta <= 1; colDelta += 1) {
@@ -47,7 +46,7 @@ export function markValidMoves(currentDiscColor: DiscColor, board: GridValue[][]
   for (let row = 0; row < board.length; row += 1) {
     for (let col = 0; col < board[row].length; col += 1) {
       if (board[row][col] === "" || board[row][col] === "V") {
-        const isValidMove = checkValid(row, col, currentDiscColor, board);
+        const isValidMove = getDiscsToFlip(row, col, currentDiscColor, board);
         if (isValidMove.length) {
           boardCopy[row][col] = "V";
         } else if (board[row][col] === "V") {

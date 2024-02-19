@@ -8,18 +8,15 @@ function Grid({ value }: { value: GridValue }) {
   if (value === "") {
     return <div className="gameboard-grid" />;
   }
-  return value === "V" ? (
-    <div className="gameboard-grid">
-      <img className="gameboard-grid__indicator" src={green_dot_imagePath} alt="Valid Move Indicator" />
-    </div>
-  ) : (
-    <div className="gameboard-grid">
-      <img
-        className="gameboard-grid__disc"
-        src={value === "W" ? white_disc_imagePath : black_disc_imagePath}
-        alt={`${value === "W" ? "White" : "Black"} Disc`}
-      />
-    </div>
+  const imagePath = value === "V" ? green_dot_imagePath : value === "W" ? white_disc_imagePath : black_disc_imagePath;
+  const altText = value === "V" ? "Valid Move Indicator" : `${value === "W" ? "White" : "Black"} Disc`;
+
+  return (
+    <img
+      className={value === "V" ? "gameboard-grid__indicator" : "gameboard-grid__disc"}
+      src={imagePath}
+      alt={altText}
+    />
   );
 }
 export default function GameBoard({ board }: { board: GridValue[][] }) {
