@@ -22,7 +22,7 @@ function GamePage(): JSX.Element {
   initialBoard[centerRow][centerCol - 1] = "B";
 
   const [board, setBoard] = useState<GridValue[][]>(markValidMoves(discColor, initialBoard));
-  const [score, setScore] = useState([2, 2]);
+  const [score, setScore] = useState(calculateScore({ board: initialBoard, playerColor: discColor }));
   const updateBoard = (updatedBoard: GridValue[][]) => {
     setBoard(markValidMoves(discColor, updatedBoard));
     setScore(calculateScore({ board: updatedBoard, playerColor: discColor }));
