@@ -25,7 +25,7 @@ export default function Popup({ show, messageType, onClose }: PopupProps) {
   return (
     <div className={`popup popup${show ? "--show" : ""}`}>
       <div className="popup-content">
-        <h1>{messageContent}</h1>
+        <span>{messageContent}</span>
         <button type="button" onClick={onClose}>
           Ok
         </button>
