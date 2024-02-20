@@ -7,7 +7,7 @@ import "../../styles/game-page/GameBoard.css";
 
 interface BoardProps {
   board: GridValue[][];
-  playerTurn: DiscColor;
+  currentTurn: DiscColor;
   onBoardPlay: (board: GridValue[][]) => void;
 }
 
@@ -32,13 +32,13 @@ function Grid({ value, onSquareClick }: { value: GridValue; onSquareClick: () =>
   );
 }
 
-export default function GameBoard({ board, playerTurn, onBoardPlay }: BoardProps) {
+export default function GameBoard({ board, currentTurn, onBoardPlay }: BoardProps) {
   function handleClick({ row, col }: GridPosition) {
     const boardCopy: GridValue[][] = board.map((rowCopy) => [...rowCopy]);
-    const discsToFlip = getDiscsToFlip({ row, col }, playerTurn, board);
-    boardCopy[row][col] = playerTurn;
+    const discsToFlip = getDiscsToFlip({ row, col }, currentTurn, board);
+    boardCopy[row][col] = currentTurn;
     discsToFlip.forEach((discToFlip) => {
-      boardCopy[discToFlip.row][discToFlip.col] = playerTurn;
+      boardCopy[discToFlip.row][discToFlip.col] = currentTurn;
     });
     onBoardPlay(boardCopy);
   }

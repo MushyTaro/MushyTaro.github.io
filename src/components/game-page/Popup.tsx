@@ -20,6 +20,7 @@ export default function Popup({ show, messageType, onClose }: PopupProps) {
       messageContent = "Player turn has been skipped due to no valid moves";
       break;
     default:
+      break;
   }
 
   return (

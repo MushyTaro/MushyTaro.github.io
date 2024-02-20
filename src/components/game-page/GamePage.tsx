@@ -23,7 +23,7 @@ function GamePage(): JSX.Element | null {
   initialBoard[centerRow][centerCol - 1] = "B";
 
   const [board, setBoard] = useState<GridValue[][]>(initialBoard);
-  const [currentPlayer, setCurrentPlayer] = useState<DiscColor>("B");
+  const [currentTurn, setCurrentTurn] = useState<DiscColor>("B");
   const [popupVisible, setPopupVisible] = useState(false);
   const [popupMessage, setPopupMessage] = useState<MessageType>("");
 
@@ -39,20 +39,20 @@ function GamePage(): JSX.Element | null {
       board: nextUpdatedBoard,
       discColor: nextPlayer,
       message,
-    } = handleTurn({ board: updatedBoard, currentPlayer, discColor });
+    } = handleTurn({ board: updatedBoard, currentTurn, discColor });
     if (message !== "") {
       setPopupMessage(message);
       setPopupVisible(true);
     } else {
-      setCurrentPlayer(nextPlayer);
+      setCurrentTurn(nextPlayer);
     }
     setBoard(nextUpdatedBoard);
   };
 
   return (
     <div className="game-page-container">
-      <GameBoard board={markValidMoves(currentPlayer, board)} playerTurn={currentPlayer} onBoardPlay={updateGame} />
-      <ScoreBoard difficulty={difficulty} discColor={discColor} currentPlayer={currentPlayer} />
+      <GameBoard board={markValidMoves(currentTurn, board)} currentTurn={currentTurn} onBoardPlay={updateGame} />
+      <ScoreBoard difficulty={difficulty} discColor={discColor} currentTurn={currentTurn} />
       <Popup show={popupVisible} messageType={popupMessage} onClose={closePopup} />
     </div>
   );

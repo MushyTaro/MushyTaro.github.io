@@ -4,12 +4,12 @@ import "../../styles/game-page/ScoreBoard.css";
 interface ScoreBoardProps {
   difficulty: Difficulty;
   discColor: DiscColor;
-  currentPlayer: DiscColor;
+  currentTurn: DiscColor;
 }
 
-export default function ScoreBoard({ difficulty, discColor, currentPlayer }: ScoreBoardProps): JSX.Element {
+export default function ScoreBoard({ difficulty, discColor, currentTurn }: ScoreBoardProps): JSX.Element {
   const [playerDiscColor, computerDiscColor] = discColor === "W" ? ["--white", ""] : ["", "--white"];
-  const [playerTurn, computerTurn] = currentPlayer === discColor ? ["--current", ""] : ["", "--current"];
+  const [playerTurn, computerTurn] = currentTurn === discColor ? ["--current", ""] : ["", "--current"];
   return (
     <div className="score-board">
       <div className={`score-board__player score-board__player${playerTurn}`}>
