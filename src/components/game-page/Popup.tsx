@@ -9,7 +9,6 @@ interface PopupProps {
 
 export default function Popup({ show, messageType, onClose }: PopupProps) {
   let messageContent = "";
-  console.log(messageType);
   switch (messageType) {
     case "end":
       messageContent = "The game has ended";
@@ -21,7 +20,6 @@ export default function Popup({ show, messageType, onClose }: PopupProps) {
       messageContent = "Player turn has been skipped due to no valid moves";
       break;
     default:
-      console.log("Error");
   }
 
   return (

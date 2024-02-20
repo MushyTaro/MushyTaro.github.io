@@ -1,5 +1,5 @@
 import { GridValue, DiscColor, MessageType } from "../types";
-import { markValidMoves } from "./ValidLogic";
+import { markValidMoves } from "./validLogic";
 
 interface HandleTurnInputs {
   updatedBoard: GridValue[][];
@@ -11,7 +11,7 @@ interface HandleTurnOutput {
   nextPlayer: DiscColor;
   message: MessageType;
 }
-export function HandleTurn({ updatedBoard, currentPlayer, discColor }: HandleTurnInputs): HandleTurnOutput {
+export function handleTurn({ updatedBoard, currentPlayer, discColor }: HandleTurnInputs): HandleTurnOutput {
   const updatedBoardCopy: GridValue[][] = updatedBoard.map((rowCopy) => [...rowCopy]);
   let nextPlayer: DiscColor = currentPlayer === "B" ? "W" : "B";
   let markedUpdatedBoard = markValidMoves(nextPlayer, updatedBoardCopy);

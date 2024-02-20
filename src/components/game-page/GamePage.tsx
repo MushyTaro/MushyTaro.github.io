@@ -1,14 +1,14 @@
 import { useState } from "react";
 import { useParams } from "react-router-dom";
-import { HandleTurn } from "../../logic/HandleTurn";
-import { markValidMoves } from "../../logic/ValidLogic";
+import { handleTurn } from "../../logic/handleTurn";
+import { markValidMoves } from "../../logic/validLogic";
 import { Difficulty, DiscColor, GridValue, MessageType } from "../../types";
-import Board from "./GameBoard";
+import GameBoard from "./GameBoard";
 import Popup from "./Popup";
 import "../../styles/game-page/GamePage.css";
 import ScoreBoard from "./ScoreBoard";
 
-function GamePage() {
+function GamePage(): JSX.Element {
   const { difficulty = "Easy", discColor = "W" } = useParams<{
     difficulty: Difficulty;
     discColor: DiscColor;
@@ -31,7 +31,7 @@ function GamePage() {
   };
 
   const updateGame = (updatedBoard: GridValue[][]) => {
-    const { nextUpdatedBoard, nextPlayer, message } = HandleTurn({ updatedBoard, currentPlayer, discColor });
+    const { nextUpdatedBoard, nextPlayer, message } = handleTurn({ updatedBoard, currentPlayer, discColor });
     if (message !== "") {
       setPopupMessage(message);
       setPopupVisible(true);
@@ -44,7 +44,7 @@ function GamePage() {
 
   return (
     <div className="game-page-container">
-      <Board board={board} playerTurn={currentPlayer} onBoardPlay={updateGame} />
+      <GameBoard board={board} playerTurn={currentPlayer} onBoardPlay={updateGame} />
       <ScoreBoard difficulty={difficulty} discColor={discColor} currentPlayer={currentPlayer} />
       <Popup show={popupVisible} messageType={popupMessage} onClose={closePopup} />
     </div>

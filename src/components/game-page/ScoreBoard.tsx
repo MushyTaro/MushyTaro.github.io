@@ -7,9 +7,8 @@ interface ScoreBoardProps {
   currentPlayer: DiscColor;
 }
 
-export default function ScoreBoard({ difficulty, discColor, currentPlayer }: ScoreBoardProps) {
+export default function ScoreBoard({ difficulty, discColor, currentPlayer }: ScoreBoardProps): JSX.Element {
   const [playerDiscColor, computerDiscColor] = discColor === "W" ? ["--white", ""] : ["", "--white"];
-  // let [currentPlayerCard, currentComputerCard] = currentPlayer === "W" ? ["--current", ""] : ["", "--current"];
   return (
     <div className="score-board">
       <div className={`score-board__player score-board__player${currentPlayer === discColor ? "--current" : ""}`}>
