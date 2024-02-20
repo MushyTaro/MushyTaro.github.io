@@ -6,8 +6,8 @@ import GameBoard from "./GameBoard";
 import "../../styles/game-page/GamePage.css";
 import ScoreBoard from "./ScoreBoard";
 
-function GamePage(): JSX.Element {
-  const { difficulty = "Easy", discColor = "W" } = useParams<{
+function GamePage(): JSX.Element | null {
+  const { difficulty, discColor } = useParams<{
     difficulty: Difficulty;
     discColor: DiscColor;
   }>();
@@ -20,15 +20,19 @@ function GamePage(): JSX.Element {
   initialBoard[centerRow][centerCol] = "W";
   initialBoard[centerRow - 1][centerCol] = "B";
   initialBoard[centerRow][centerCol - 1] = "B";
+  const [board, setBoard] = useState<GridValue[][]>(initialBoard);
 
-  const [board, setBoard] = useState<GridValue[][]>(markValidMoves(discColor, initialBoard));
+  if (!difficulty || !discColor) {
+    return null;
+  }
 
   const updateBoard = (updatedBoard: GridValue[][]): void => {
-    setBoard(markValidMoves(discColor, updatedBoard));
+    setBoard(updatedBoard);
   };
+
   return (
     <div className="game-page-container">
-      <GameBoard board={board} playerTurn={discColor} onBoardPlay={updateBoard} />
+      <GameBoard board={markValidMoves(discColor, board)} playerTurn={discColor} onBoardPlay={updateBoard} />
       <ScoreBoard difficulty={difficulty} discColor={discColor} />
     </div>
   );
