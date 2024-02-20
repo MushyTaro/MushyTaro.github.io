@@ -1,11 +1,6 @@
-import { GridValue, DiscColor } from "../types";
+import { DiscColorBoardState } from "../types";
 
-interface CalculateScoreInputs {
-  board: GridValue[][];
-  playerColor: DiscColor;
-}
-
-export default function calculateScore({ board, playerColor }: CalculateScoreInputs): {
+export default function calculateScore({ discColor: playerDiscColor, board }: DiscColorBoardState): {
   playerScore: number;
   computerScore: number;
 } {
@@ -13,7 +8,7 @@ export default function calculateScore({ board, playerColor }: CalculateScoreInp
   const blackCount = flattenedBoard.filter((piece) => piece === "B").length;
   const whiteCount = flattenedBoard.filter((piece) => piece === "W").length;
   const scores =
-    playerColor === "W"
+    playerDiscColor === "W"
       ? { playerScore: whiteCount, computerScore: blackCount }
       : { playerScore: blackCount, computerScore: whiteCount };
   return scores;

@@ -1,12 +1,7 @@
-import { DiscColor, GridValue } from "../types";
-
-interface GridPosition {
-  row: number;
-  col: number;
-}
+import { DiscColor, GridValue, GridPosition } from "../types";
 
 export function getDiscsToFlip(
-  GridPosition: GridPosition,
+  gridPosition: GridPosition,
   currentDiscColor: DiscColor,
   board: GridValue[][]
 ): GridPosition[] {
@@ -15,8 +10,8 @@ export function getDiscsToFlip(
   for (let rowDelta = -1; rowDelta <= 1; rowDelta += 1) {
     for (let colDelta = -1; colDelta <= 1; colDelta += 1) {
       if (!(rowDelta === 0 && colDelta === 0)) {
-        let currentRow = GridPosition.row + rowDelta;
-        let currentCol = GridPosition.col + colDelta;
+        let currentRow = gridPosition.row + rowDelta;
+        let currentCol = gridPosition.col + colDelta;
         const tempDisc: { row: number; col: number }[] = [];
         while (
           currentRow >= 0 &&

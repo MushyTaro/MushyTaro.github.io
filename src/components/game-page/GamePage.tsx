@@ -32,15 +32,11 @@ function GamePage(): JSX.Element | null {
 
   return (
     <div className="game-page-container">
-      <GameBoard
-        board={markValidMoves(playerDiscColor, board)}
-        playerTurn={playerDiscColor}
-        onBoardPlay={updateBoard}
-      />
+      <GameBoard discColor={playerDiscColor} board={markValidMoves(playerDiscColor, board)} onBoardPlay={updateBoard} />
       <ScoreBoard
         difficulty={difficulty}
         playerDiscColor={playerDiscColor}
-        score={calculateScore({ board, playerColor: playerDiscColor })}
+        score={calculateScore({ discColor: playerDiscColor, board })}
       />
     </div>
   );
