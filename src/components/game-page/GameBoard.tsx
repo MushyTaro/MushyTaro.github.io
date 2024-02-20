@@ -33,7 +33,7 @@ function Grid({ value, onSquareClick }: { value: GridValue; onSquareClick: () =>
 export default function GameBoard({ discColor, board, onBoardPlay }: BoardProps) {
   function handleClick({ row, col }: GridPosition): void {
     const boardCopy: GridValue[][] = board.map((rowCopy) => [...rowCopy]);
-    const discsToFlip = getDiscsToFlip({ row, col }, discColor, board);
+    const discsToFlip = getDiscsToFlip({ row, col }, { discColor, board });
     boardCopy[row][col] = discColor;
     discsToFlip.forEach((discToFlip) => {
       boardCopy[discToFlip.row][discToFlip.col] = discColor;
