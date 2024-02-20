@@ -1,13 +1,10 @@
-import { Difficulty, DiscColor } from "../../types";
+import { Difficulty, DiscColor, Scores } from "../../types";
 import "../../styles/game-page/ScoreBoard.css";
 
 interface ScoreBoardProps {
   difficulty: Difficulty;
   playerDiscColor: DiscColor;
-  score: {
-    playerScore: number;
-    computerScore: number;
-  };
+  score: Scores;
 }
 
 export default function ScoreBoard({ difficulty, playerDiscColor, score }: ScoreBoardProps): JSX.Element {

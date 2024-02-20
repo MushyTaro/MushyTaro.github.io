@@ -1,9 +1,6 @@
-import { DiscColorBoardState } from "../types";
+import { DiscColorBoardState, Scores } from "../types";
 
-export default function calculateScore({ discColor: playerDiscColor, board }: DiscColorBoardState): {
-  playerScore: number;
-  computerScore: number;
-} {
+export default function calculateScore({ discColor: playerDiscColor, board }: DiscColorBoardState): Scores {
   const flattenedBoard = board.flat();
   const blackCount = flattenedBoard.filter((piece) => piece === "B").length;
   const whiteCount = flattenedBoard.filter((piece) => piece === "W").length;
