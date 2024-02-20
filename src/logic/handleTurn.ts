@@ -11,16 +11,16 @@ export function handleTurn({ board: updatedBoard, discColor, currentPlayer }: Ha
   const updatedBoardCopy: GridValue[][] = updatedBoard.map((rowCopy) => [...rowCopy]);
   let nextPlayer: DiscColor = currentPlayer === "B" ? "W" : "B";
   let markedUpdatedBoard = markValidMoves(nextPlayer, updatedBoardCopy);
-  let containsValidMoves = markedUpdatedBoard.some((row) => row.includes("V"));
+  let isValidMoveAvailable = markedUpdatedBoard.some((row) => row.includes("V"));
   const isBoardNotFull = markedUpdatedBoard.some((row) => row.includes(""));
-  if (!containsValidMoves && !isBoardNotFull) {
+  if (!isValidMoveAvailable && !isBoardNotFull) {
     return { board: markedUpdatedBoard, discColor: nextPlayer, message: "end" };
   }
-  if (!containsValidMoves && isBoardNotFull) {
+  if (!isValidMoveAvailable && isBoardNotFull) {
     nextPlayer = currentPlayer === "B" ? "B" : "W";
     markedUpdatedBoard = markValidMoves(nextPlayer, updatedBoardCopy);
-    containsValidMoves = markedUpdatedBoard.some((row) => row.includes("V"));
-    if (!containsValidMoves) {
+    isValidMoveAvailable = markedUpdatedBoard.some((row) => row.includes("V"));
+    if (!isValidMoveAvailable) {
       return { board: markedUpdatedBoard, discColor: nextPlayer, message: "end" };
     }
     return {

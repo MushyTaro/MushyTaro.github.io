@@ -43,11 +43,10 @@ function GamePage(): JSX.Element | null {
     if (message !== "") {
       setPopupMessage(message);
       setPopupVisible(true);
-      setBoard(nextUpdatedBoard);
     } else {
       setCurrentPlayer(nextPlayer);
-      setBoard(nextUpdatedBoard);
     }
+    setBoard(nextUpdatedBoard);
   };
 
   return (
