@@ -37,14 +37,14 @@ function GamePage(): JSX.Element | null {
   const updateGame = (updatedBoard: GridValue[][]) => {
     const {
       board: nextUpdatedBoard,
-      discColor: nextPlayer,
+      discColor: nextTurn,
       message,
     } = handleTurn({ board: updatedBoard, currentTurn, discColor });
     if (message !== "") {
       setPopupMessage(message);
       setPopupVisible(true);
     } else {
-      setCurrentTurn(nextPlayer);
+      setCurrentTurn(nextTurn);
     }
     setBoard(nextUpdatedBoard);
   };
