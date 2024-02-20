@@ -3,27 +3,27 @@ import "../../styles/game-page/ScoreBoard.css";
 
 interface ScoreBoardProps {
   difficulty: Difficulty;
-  discColor: DiscColor;
+  playerDiscColor: DiscColor;
   score: {
     playerScore: number;
     computerScore: number;
   };
 }
 
-export default function ScoreBoard({ difficulty, discColor, score }: ScoreBoardProps): JSX.Element {
-  const [playerDiscColor, computerDiscColor] = discColor === "W" ? ["--white", ""] : ["", "--white"];
+export default function ScoreBoard({ difficulty, playerDiscColor, score }: ScoreBoardProps): JSX.Element {
+  const [playerScoreDisc, computerScoreDisc] = playerDiscColor === "W" ? ["--white", ""] : ["", "--white"];
 
   return (
     <div className="score-board">
       <div className="score-board__player">
         Player
-        <div className={`score-board__player__disc score-board__player__disc${playerDiscColor}`}>
+        <div className={`score-board__player__disc score-board__player__disc${playerScoreDisc}`}>
           {score.playerScore}
         </div>
       </div>
       <span className="score-board__text">Scores</span>
       <div className="score-board__computer">
-        <div className={`score-board__computer__disc score-board__computer__disc${computerDiscColor}`}>
+        <div className={`score-board__computer__disc score-board__computer__disc${computerScoreDisc}`}>
           {score.computerScore}
         </div>
         Computer:{difficulty}
