@@ -35,7 +35,11 @@ function GamePage(): JSX.Element | null {
     setPopupVisible(false);
   };
   const updateGame = (updatedBoard: GridValue[][]) => {
-    const { nextUpdatedBoard, nextPlayer, message } = handleTurn({ updatedBoard, currentPlayer, discColor });
+    const {
+      board: nextUpdatedBoard,
+      discColor: nextPlayer,
+      message,
+    } = handleTurn({ board: updatedBoard, currentPlayer, discColor });
     if (message !== "") {
       setPopupMessage(message);
       setPopupVisible(true);

@@ -1,37 +1,33 @@
-import { GridValue, DiscColor, MessageType } from "../types";
+import { GridValue, DiscColor, MessageType, DiscColorBoardState } from "../types";
 import { markValidMoves } from "./validLogic";
 
-interface HandleTurnInputs {
-  updatedBoard: GridValue[][];
+interface HandleTurnInputs extends DiscColorBoardState {
   currentPlayer: DiscColor;
-  discColor: DiscColor;
 }
-interface HandleTurnOutput {
-  nextUpdatedBoard: GridValue[][];
-  nextPlayer: DiscColor;
+interface HandleTurnOutput extends DiscColorBoardState {
   message: MessageType;
 }
-export function handleTurn({ updatedBoard, currentPlayer, discColor }: HandleTurnInputs): HandleTurnOutput {
+export function handleTurn({ board: updatedBoard, discColor, currentPlayer }: HandleTurnInputs): HandleTurnOutput {
   const updatedBoardCopy: GridValue[][] = updatedBoard.map((rowCopy) => [...rowCopy]);
   let nextPlayer: DiscColor = currentPlayer === "B" ? "W" : "B";
   let markedUpdatedBoard = markValidMoves(nextPlayer, updatedBoardCopy);
   let containsValidMoves = markedUpdatedBoard.some((row) => row.includes("V"));
   const isBoardNotFull = markedUpdatedBoard.some((row) => row.includes(""));
   if (!containsValidMoves && !isBoardNotFull) {
-    return { nextUpdatedBoard: markedUpdatedBoard, nextPlayer, message: "end" };
+    return { board: markedUpdatedBoard, discColor: nextPlayer, message: "end" };
   }
   if (!containsValidMoves && isBoardNotFull) {
     nextPlayer = currentPlayer === "B" ? "B" : "W";
     markedUpdatedBoard = markValidMoves(nextPlayer, updatedBoardCopy);
     containsValidMoves = markedUpdatedBoard.some((row) => row.includes("V"));
     if (!containsValidMoves) {
-      return { nextUpdatedBoard: markedUpdatedBoard, nextPlayer, message: "end" };
+      return { board: markedUpdatedBoard, discColor: nextPlayer, message: "end" };
     }
     return {
-      nextUpdatedBoard: markedUpdatedBoard,
-      nextPlayer,
+      board: markedUpdatedBoard,
+      discColor: nextPlayer,
       message: currentPlayer === discColor ? "skip computer" : "skip player",
     };
   }
-  return { nextUpdatedBoard: markedUpdatedBoard, nextPlayer, message: "" };
+  return { board: markedUpdatedBoard, discColor: nextPlayer, message: "" };
 }
