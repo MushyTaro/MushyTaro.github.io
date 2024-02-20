@@ -6,7 +6,7 @@ interface ScoreBoardProps {
   discColor: DiscColor;
 }
 
-export default function ScoreBoard({ difficulty, discColor }: ScoreBoardProps) {
+export default function ScoreBoard({ difficulty, discColor }: ScoreBoardProps): JSX.Element {
   const [playerDiscColor, computerDiscColor] = discColor === "W" ? ["--white", ""] : ["", "--white"];
 
   return (
