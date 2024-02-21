@@ -5,20 +5,20 @@
   height: 100%;
   background-color: rgba(0, 0, 0, 0.4);
   color: black;
-  text-align: center;
 }
 .popup-content {
   background-color: white;
-  margin: 10% auto 0px;
+  margin: 15% auto 0px;
   padding: 20px;
   border: 1px solid #888888;
   width: 30%;
   font-size: 1.5rem;
   font-weight: bolder;
+  text-align: center;
 }
 .popup-content button {
   display: block;
-  margin: 20px auto 5px;
+  margin: 20px auto 0px;
   font-size: 1rem;
 }
 .popup--show {
