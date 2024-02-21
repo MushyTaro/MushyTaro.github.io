@@ -8,18 +8,14 @@ interface PopupProps {
 }
 
 export default function Popup({ show, messageType, onClose }: PopupProps): JSX.Element {
-  const messageContents = {
-    end: "The game has ended",
-    skipComputer: "Computer turn has been skipped due to no valid moves",
-    skipPlayer: "Player turn has been skipped due to no valid moves",
-  };
-
-  const messageContent = messageType ? messageContents[messageType] : "";
+  const messageContent = messageType.startsWith("skip")
+    ? `${messageType.substring(4)} turn has been skipped due to no valid moves`
+    : "The game has ended";
 
   return (
     <div className={`popup popup${show ? "--show" : ""}`}>
       <div className="popup-content">
-        <span>{messageContent}</span>
+        {messageType !== "" && <span>{messageContent}</span>}
         <button type="button" onClick={onClose}>
           Ok
         </button>
