@@ -13,8 +13,8 @@ function MainPage(): JSX.Element {
   const handleDifficulty = (difficulty: Difficulty): void => {
     setSelectedDifficulty(difficulty);
   };
-  const handleDiscColor = (discColor: DiscColor): void => {
-    setSelectedDiscColor(discColor);
+  const handleDiscColor = (playerDiscColor: DiscColor): void => {
+    setSelectedDiscColor(playerDiscColor);
   };
 
   const handleSubmit = (): void => {

@@ -10,3 +10,7 @@ export interface GridPosition {
   row: number;
   col: number;
 }
+export type Scores = {
+  playerScore: number;
+  computerScore: number;
+};

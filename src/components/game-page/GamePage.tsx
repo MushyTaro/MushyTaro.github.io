@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useParams } from "react-router-dom";
+import calculateScore from "../../logic/calculateScore";
 import { handleTurn } from "../../logic/handleTurn";
 import { markValidMoves } from "../../logic/validLogic";
 import { Difficulty, DiscColor, GridValue, MessageType } from "../../types";
@@ -9,9 +10,9 @@ import "../../styles/game-page/GamePage.css";
 import ScoreBoard from "./ScoreBoard";
 
 function GamePage(): JSX.Element | null {
-  const { difficulty, discColor } = useParams<{
+  const { difficulty, playerDiscColor } = useParams<{
     difficulty: Difficulty;
-    discColor: DiscColor;
+    playerDiscColor: DiscColor;
   }>();
 
   const initialBoard: GridValue[][] = Array.from({ length: 8 }, () => Array(8).fill(""));
@@ -27,7 +28,7 @@ function GamePage(): JSX.Element | null {
   const [popupVisible, setPopupVisible] = useState(false);
   const [popupMessage, setPopupMessage] = useState<MessageType>("");
 
-  if (!difficulty || !discColor) {
+  if (!difficulty || !playerDiscColor) {
     return null;
   }
 
@@ -39,7 +40,7 @@ function GamePage(): JSX.Element | null {
       board: nextUpdatedBoard,
       discColor: nextTurn,
       message,
-    } = handleTurn({ board: updatedBoard, currentTurn, discColor });
+    } = handleTurn({ board: updatedBoard, currentTurn, discColor: playerDiscColor });
     if (message !== "") {
       setPopupMessage(message);
       setPopupVisible(true);
@@ -51,8 +52,13 @@ function GamePage(): JSX.Element | null {
 
   return (
     <div className="game-page-container">
-      <GameBoard board={markValidMoves(currentTurn, board)} currentTurn={currentTurn} onBoardPlay={updateGame} />
-      <ScoreBoard difficulty={difficulty} discColor={discColor} currentTurn={currentTurn} />
+      <GameBoard board={markValidMoves(currentTurn, board)} discColor={currentTurn} onBoardPlay={updateGame} />
+      <ScoreBoard
+        difficulty={difficulty}
+        playerDiscColor={playerDiscColor}
+        currentTurn={currentTurn}
+        score={calculateScore({ discColor: playerDiscColor, board })}
+      />
       <Popup show={popupVisible} messageType={popupMessage} onClose={closePopup} />
     </div>
   );

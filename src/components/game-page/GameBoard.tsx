@@ -2,12 +2,10 @@ import black_disc_imagePath from "../../assets/black-disc.png";
 import green_dot_imagePath from "../../assets/green-dot.png";
 import white_disc_imagePath from "../../assets/white-disc.png";
 import { getDiscsToFlip } from "../../logic/validLogic";
-import { DiscColor, GridPosition, GridValue } from "../../types";
+import { GridValue, DiscColorBoardState, GridPosition } from "../../types";
 import "../../styles/game-page/GameBoard.css";
 
-interface BoardProps {
-  board: GridValue[][];
-  currentTurn: DiscColor;
+interface BoardProps extends DiscColorBoardState {
   onBoardPlay: (board: GridValue[][]) => void;
 }
 
@@ -32,13 +30,13 @@ function Grid({ value, onSquareClick }: { value: GridValue; onSquareClick: () =>
   );
 }
 
-export default function GameBoard({ board, currentTurn, onBoardPlay }: BoardProps) {
-  function handleClick({ row, col }: GridPosition) {
+export default function GameBoard({ discColor, board, onBoardPlay }: BoardProps) {
+  function handleClick({ row, col }: GridPosition): void {
     const boardCopy: GridValue[][] = board.map((rowCopy) => [...rowCopy]);
-    const discsToFlip = getDiscsToFlip({ row, col }, currentTurn, board);
-    boardCopy[row][col] = currentTurn;
+    const discsToFlip = getDiscsToFlip({ row, col }, { discColor, board });
+    boardCopy[row][col] = discColor;
     discsToFlip.forEach((discToFlip) => {
-      boardCopy[discToFlip.row][discToFlip.col] = currentTurn;
+      boardCopy[discToFlip.row][discToFlip.col] = discColor;
     });
     onBoardPlay(boardCopy);
   }

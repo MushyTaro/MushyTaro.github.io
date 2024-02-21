@@ -1,11 +1,7 @@
-import { DiscColor, GridValue, GridPosition } from "../types";
+import { DiscColor, DiscColorBoardState, GridPosition, GridValue } from "../types";
 
-export function getDiscsToFlip(
-  gridPosition: GridPosition,
-  currentDiscColor: DiscColor,
-  board: GridValue[][]
-): GridPosition[] {
-  const boardCopy: GridValue[][] = board.map((rowCopy) => [...rowCopy]);
+export function getDiscsToFlip(gridPosition: GridPosition, discColorBoardState: DiscColorBoardState): GridPosition[] {
+  const boardCopy: GridValue[][] = discColorBoardState.board.map((rowCopy) => [...rowCopy]);
   const discsToFlip: { row: number; col: number }[] = [];
   for (let rowDelta = -1; rowDelta <= 1; rowDelta += 1) {
     for (let colDelta = -1; colDelta <= 1; colDelta += 1) {
@@ -20,7 +16,7 @@ export function getDiscsToFlip(
           currentCol < boardCopy[currentRow].length &&
           boardCopy[currentRow][currentCol] !== "" &&
           boardCopy[currentRow][currentCol] !== "V" &&
-          boardCopy[currentRow][currentCol] !== currentDiscColor
+          boardCopy[currentRow][currentCol] !== discColorBoardState.discColor
         ) {
           tempDisc.push({ row: currentRow, col: currentCol });
           currentRow += rowDelta;
@@ -31,7 +27,7 @@ export function getDiscsToFlip(
           currentRow < boardCopy.length &&
           currentCol >= 0 &&
           currentCol < boardCopy[currentRow].length &&
-          boardCopy[currentRow][currentCol] === currentDiscColor &&
+          boardCopy[currentRow][currentCol] === discColorBoardState.discColor &&
           tempDisc.length > 0
         ) {
           tempDisc.forEach((discToFlip) => {
@@ -50,7 +46,7 @@ export function markValidMoves(currentDiscColor: DiscColor, board: GridValue[][]
   for (let row = 0; row < board.length; row += 1) {
     for (let col = 0; col < board[row].length; col += 1) {
       if (board[row][col] === "" || board[row][col] === "V") {
-        const discsToFlip = getDiscsToFlip({ row, col }, currentDiscColor, board);
+        const discsToFlip = getDiscsToFlip({ row, col }, { discColor: currentDiscColor, board });
         if (discsToFlip.length) {
           boardCopy[row][col] = "V";
         } else if (board[row][col] === "V") {
