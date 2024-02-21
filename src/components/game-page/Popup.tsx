@@ -1,25 +1,43 @@
-import { MessageType } from "../../types";
+import { useNavigate } from "react-router-dom";
+import { MessageType, Scores } from "../../types";
 import "../../styles/game-page/Popup.css";
 
 interface PopupProps {
   show: boolean;
   messageType: MessageType;
   onClose: () => void;
+  score: Scores;
 }
 
-export default function Popup({ show, messageType, onClose }: PopupProps): JSX.Element {
-  const messageContent = messageType.startsWith("skip")
-    ? `${messageType.substring(4)} turn has been skipped due to no valid moves`
-    : "The game has ended";
-
-  return (
-    <div className={`popup popup${show ? "--show" : ""}`}>
-      <div className="popup-content">
-        {messageType !== "" && <span>{messageContent}</span>}
-        <button type="button" onClick={onClose}>
-          Ok
-        </button>
+export default function Popup({ show, messageType, onClose, score }: PopupProps): JSX.Element {
+  const navigate = useNavigate();
+  const popupContent = messageType.startsWith("skip") ? (
+    <div className="popup-content">
+      {`${messageType.substring(4)} turn has been skipped due to no valid moves`}
+      <button type="button" onClick={onClose}>
+        Ok
+      </button>
+    </div>
+  ) : (
+    <div className="popup-content">
+      {score.playerScore > score.computerScore
+        ? "Congratulations! You have win the game!"
+        : "Looks like the tiles didn't flip in your favor this time. Better luck next time!"}
+      <br />
+      Scores: <br />
+      <div className="popup--score">
+        <span>{`Player: ${score.playerScore}`}</span>
+        <span> - </span>
+        <span>{`Computer: ${score.computerScore}`}</span>
       </div>
+      <button className="popup-button" type="button" onClick={() => navigate("/")}>
+        Return to homepage
+      </button>
+      <button className="popup-button" type="button" onClick={onClose}>
+        Restart a game
+      </button>
     </div>
   );
+
+  return <div className={`popup popup${show ? "--show" : ""}`}>{popupContent}</div>;
 }

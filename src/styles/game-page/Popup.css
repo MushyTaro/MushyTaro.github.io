@@ -24,3 +24,12 @@
 .popup--show {
   display: block;
 }
+.popup--score {
+  display: grid;
+  grid-template-columns: 3fr 1fr 3fr;
+}
+
+.popup-content button.popup-button {
+  display: inline-block;
+  margin: 20px 10px 0px;
+}
