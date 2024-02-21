@@ -44,6 +44,7 @@ function GamePage(): JSX.Element | null {
     } else {
       setCurrentTurn(nextTurn);
     }
+    setPopupVisible(true);
     setBoard(updatedBoard);
   };
 
