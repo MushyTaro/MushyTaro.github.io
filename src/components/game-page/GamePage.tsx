@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 import calculateScore from "../../logic/calculateScore";
-import { handleTurn } from "../../logic/handleTurn";
+import handleTurn from "../../logic/handleTurn";
 import { markValidMoves } from "../../logic/validLogic";
 import { Difficulty, DiscColor, GridValue, MessageType } from "../../types";
 import GameBoard from "./GameBoard";

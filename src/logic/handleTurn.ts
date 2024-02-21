@@ -8,7 +8,7 @@ interface HandleTurnOutput {
   nextTurn: DiscColor;
   message: MessageType;
 }
-export function handleTurn({
+export default function handleTurn({
   board: updatedBoard,
   discColor: playerDiscColor,
   currentTurn,
