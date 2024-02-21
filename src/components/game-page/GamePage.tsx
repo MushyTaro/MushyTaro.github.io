@@ -32,7 +32,7 @@ function GamePage(): JSX.Element | null {
     return null;
   }
 
-  const updateGame = (updatedBoard: GridValue[][]) => {
+  const updateGame = (updatedBoard: GridValue[][]): void => {
     const { nextTurn, message } = handleTurn({
       board: updatedBoard,
       currentTurn,
