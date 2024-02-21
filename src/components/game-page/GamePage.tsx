@@ -32,22 +32,19 @@ function GamePage(): JSX.Element | null {
     return null;
   }
 
-  const closePopup = () => {
-    setPopupVisible(false);
-  };
   const updateGame = (updatedBoard: GridValue[][]) => {
-    const {
-      board: nextUpdatedBoard,
-      discColor: nextTurn,
-      message,
-    } = handleTurn({ board: updatedBoard, currentTurn, discColor: playerDiscColor });
+    const { nextTurn, message } = handleTurn({
+      board: updatedBoard,
+      currentTurn,
+      discColor: playerDiscColor,
+    });
     if (message !== "") {
       setPopupMessage(message);
       setPopupVisible(true);
     } else {
       setCurrentTurn(nextTurn);
     }
-    setBoard(nextUpdatedBoard);
+    setBoard(updatedBoard);
   };
 
   return (
@@ -59,7 +56,7 @@ function GamePage(): JSX.Element | null {
         currentTurn={currentTurn}
         score={calculateScore({ discColor: playerDiscColor, board })}
       />
-      <Popup show={popupVisible} messageType={popupMessage} onClose={closePopup} />
+      <Popup show={popupVisible} messageType={popupMessage} onClose={() => setPopupVisible(false)} />
     </div>
   );
 }

@@ -4,7 +4,8 @@ import { markValidMoves } from "./validLogic";
 interface HandleTurnInputs extends DiscColorBoardState {
   currentTurn: DiscColor;
 }
-interface HandleTurnOutput extends DiscColorBoardState {
+interface HandleTurnOutput {
+  nextTurn: DiscColor;
   message: MessageType;
 }
 export function handleTurn({
@@ -18,20 +19,19 @@ export function handleTurn({
   let isValidMoveAvailable = markedUpdatedBoard.some((row) => row.includes("V"));
   const isBoardNotFull = markedUpdatedBoard.some((row) => row.includes(""));
   if (!isValidMoveAvailable && !isBoardNotFull) {
-    return { board: markedUpdatedBoard, discColor: nextTurn, message: "end" };
+    return { nextTurn, message: "end" };
   }
   if (!isValidMoveAvailable && isBoardNotFull) {
     nextTurn = currentTurn === "B" ? "B" : "W";
     markedUpdatedBoard = markValidMoves(nextTurn, updatedBoardCopy);
     isValidMoveAvailable = markedUpdatedBoard.some((row) => row.includes("V"));
     if (!isValidMoveAvailable) {
-      return { board: markedUpdatedBoard, discColor: nextTurn, message: "end" };
+      return { nextTurn, message: "end" };
     }
     return {
-      board: markedUpdatedBoard,
-      discColor: nextTurn,
+      nextTurn,
       message: currentTurn === playerDiscColor ? "skipComputer" : "skipPlayer",
     };
   }
-  return { board: markedUpdatedBoard, discColor: nextTurn, message: "" };
+  return { nextTurn, message: "" };
 }
