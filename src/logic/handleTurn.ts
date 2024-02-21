@@ -30,7 +30,7 @@ export function handleTurn({
     return {
       board: markedUpdatedBoard,
       discColor: nextTurn,
-      message: currentTurn === playerDiscColor ? "skip computer" : "skip player",
+      message: currentTurn === playerDiscColor ? "skipComputer" : "skipPlayer",
     };
   }
   return { board: markedUpdatedBoard, discColor: nextTurn, message: "" };

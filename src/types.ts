@@ -1,7 +1,7 @@
 export type DiscColor = "B" | "W";
 export type Difficulty = "Easy" | "Hard";
 export type GridValue = DiscColor | "" | "V";
-export type MessageType = "skip computer" | "skip player" | "end" | "";
+export type MessageType = "skipComputer" | "skipPlayer" | "end" | "";
 export interface DiscColorBoardState {
   discColor: DiscColor;
   board: GridValue[][];
