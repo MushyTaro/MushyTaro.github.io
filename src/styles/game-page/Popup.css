@@ -7,6 +7,9 @@
   background-color: rgba(0, 0, 0, 0.4);
   color: black;
 }
+.popup--show {
+  display: block;
+}
 
 .popup-content {
   background-color: white;
@@ -22,7 +25,4 @@
   display: block;
   margin: 20px auto 0px;
   font-size: 2rem;
-}
-.popup--show {
-  display: block;
 }
