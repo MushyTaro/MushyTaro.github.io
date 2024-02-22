@@ -29,9 +29,13 @@
 .popup--show {
   display: block;
 }
-.popup--score {
+.popup--score-title {
+  margin-top: 10px;
+}
+.popup--score-result {
   display: grid;
   grid-template-columns: 3fr 1fr 3fr;
+  margin-bottom: 15px;
 }
 
 .popup-content button.popup-button {
