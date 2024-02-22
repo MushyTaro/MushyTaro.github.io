@@ -30,10 +30,10 @@ export default function Popup({ show, messageType, onClose, score }: PopupProps)
         <span>{`Computer: ${score.computerScore}`}</span>
       </div>
       <button className="popup--end-button" type="button" onClick={() => navigate("/")}>
-        Return to homepage
+        Go to homepage
       </button>
       <button className="popup--end-button" type="button" onClick={onClose}>
-        Restart a game
+        Start a new game
       </button>
     </div>
   );
