@@ -9,10 +9,18 @@ interface BoardProps extends DiscColorBoardState {
   onBoardPlay: (board: GridValue[][]) => void;
 }
 
-function Grid({ value, onSquareClick }: { value: GridValue; onSquareClick: () => void }): JSX.Element {
+function Grid({
+  value,
+  indicator,
+  onSquareClick,
+}: {
+  value: GridValue;
+  indicator: string;
+  onSquareClick: () => void;
+}): JSX.Element {
   if (value === "V") {
     return (
-      <button type="button" className="gameboard-grid" onClick={onSquareClick}>
+      <button type="button" className="gameboard-grid" onClick={onSquareClick} key-data={indicator}>
         <img className="gameboard-grid__indicator" src={green_dot_imagePath} alt="Valid Move Indicator" />
       </button>
     );
@@ -46,7 +54,14 @@ export default function GameBoard({ discColor, board, onBoardPlay }: BoardProps)
       {board.map((row, rowIndex) =>
         row.map((value, colIndex) => {
           const index = `${rowIndex}-${colIndex}`;
-          return <Grid key={index} value={value} onSquareClick={() => handleClick({ row: rowIndex, col: colIndex })} />;
+          return (
+            <Grid
+              key={index}
+              indicator={index}
+              value={value}
+              onSquareClick={() => handleClick({ row: rowIndex, col: colIndex })}
+            />
+          );
         })
       )}
     </div>

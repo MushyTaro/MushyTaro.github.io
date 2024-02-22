@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 import calculateScore from "../../logic/calculateScore";
+import { getGreedyMove } from "../../logic/computerAI";
 import { handleTurn } from "../../logic/handleTurn";
 import { markValidMoves } from "../../logic/validLogic";
 import { Difficulty, DiscColor, GridValue, MessageType } from "../../types";
@@ -45,6 +46,16 @@ function GamePage(): JSX.Element | null {
       setCurrentTurn(nextTurn);
     }
     setBoard(updatedBoard);
+    const opposingDiscColor = playerDiscColor === "W" ? "B" : "W";
+    if (nextTurn === opposingDiscColor) {
+      setTimeout(() => {
+        const bestMove = getGreedyMove(updatedBoard, opposingDiscColor);
+        const selectedCell = document.querySelector(
+          `.gameboard-grid[key-data="${bestMove.row}-${bestMove.col}"]`
+        ) as HTMLButtonElement;
+        selectedCell.click();
+      }, 1000);
+    }
   };
 
   return (
