@@ -38,5 +38,5 @@ export default function Popup({ show, messageType, onClose, score }: PopupProps)
     </div>
   );
 
-  return <div className={`popup popup${show ? "--show" : ""}`}>{popupContent}</div>;
+  return <div className={`popup popup${show ? "--show" : ""}`}>{messageType !== "" && popupContent}</div>;
 }

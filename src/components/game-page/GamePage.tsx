@@ -65,6 +65,7 @@ function GamePage(): JSX.Element | null {
             setBoard(initialBoard);
             setCurrentTurn("B");
           }
+          setPopupMessage("");
           setPopupVisible(false);
         }}
       />
