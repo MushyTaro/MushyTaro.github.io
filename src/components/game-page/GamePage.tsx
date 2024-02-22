@@ -44,6 +44,7 @@ function GamePage(): JSX.Element | null {
     } else {
       setCurrentTurn(nextTurn);
     }
+    setPopupVisible(true);
     setBoard(updatedBoard);
   };
 
@@ -56,7 +57,14 @@ function GamePage(): JSX.Element | null {
         currentTurn={currentTurn}
         score={calculateScore({ discColor: playerDiscColor, board })}
       />
-      <Popup show={popupVisible} messageType={popupMessage} onClose={() => setPopupVisible(false)} />
+      <Popup
+        show={popupVisible}
+        messageType={popupMessage}
+        onClose={() => {
+          setPopupMessage("");
+          setPopupVisible(false);
+        }}
+      />
     </div>
   );
 }
