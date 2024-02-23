@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import calculateScore from "../../logic/calculateScore";
-import { getGreedyMove } from "../../logic/computerAI";
+import { getComputerMove } from "../../logic/computerAI";
 import { handleTurn } from "../../logic/handleTurn";
 import { markValidMoves } from "../../logic/validLogic";
 import { Difficulty, DiscColor, GridValue, MessageType } from "../../types";
@@ -19,6 +19,7 @@ function GamePage(): JSX.Element | null {
   const initialBoard: GridValue[][] = Array.from({ length: 8 }, () => Array(8).fill(""));
   const centerRow = Math.floor(initialBoard.length / 2);
   const centerCol = Math.floor(initialBoard[0].length / 2);
+  const opposingDiscColor = playerDiscColor === "W" ? "B" : "W";
   initialBoard[centerRow - 1][centerCol - 1] = "W";
   initialBoard[centerRow][centerCol] = "W";
   initialBoard[centerRow - 1][centerCol] = "B";
@@ -28,6 +29,25 @@ function GamePage(): JSX.Element | null {
   const [currentTurn, setCurrentTurn] = useState<DiscColor>("B");
   const [popupVisible, setPopupVisible] = useState(false);
   const [popupMessage, setPopupMessage] = useState<MessageType>("");
+
+  useEffect(() => {
+    if (currentTurn === opposingDiscColor && !popupVisible) {
+      const waitForPopupClosed = setInterval(() => {
+        if (!popupVisible) {
+          clearInterval(waitForPopupClosed);
+          setTimeout(() => {
+            const bestMove = getComputerMove(board, opposingDiscColor);
+            const selectedCell = document.querySelector(
+              `.gameboard-grid[key-data="${bestMove.row}-${bestMove.col}"]`
+            ) as HTMLButtonElement;
+            if (selectedCell) {
+              selectedCell.click();
+            }
+          }, 1000);
+        }
+      }, 500);
+    }
+  }, [board, currentTurn, opposingDiscColor, popupVisible]);
 
   if (!difficulty || !playerDiscColor) {
     return null;
@@ -46,17 +66,15 @@ function GamePage(): JSX.Element | null {
       setCurrentTurn(nextTurn);
     }
     setBoard(updatedBoard);
-    const opposingDiscColor = playerDiscColor === "W" ? "B" : "W";
-    if (nextTurn === opposingDiscColor) {
-      setTimeout(() => {
-        const bestMove = getGreedyMove(updatedBoard, opposingDiscColor);
-        const selectedCell = document.querySelector(
-          `.gameboard-grid[key-data="${bestMove.row}-${bestMove.col}"]`
-        ) as HTMLButtonElement;
-        selectedCell.click();
-      }, 1000);
-    }
+
+    // if (nextTurn === opposingDiscColor) {
+    //   computerMakeMove(updatedBoard);
+    // }
   };
+
+  // if (currentTurn === opposingDiscColor && board === initialBoard) {
+  //   computerMakeMove(board);
+  // }
 
   return (
     <div className="game-page-container">

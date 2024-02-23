@@ -14,7 +14,7 @@ function getValidMoves(board: GridValue[][], discColor: DiscColor): GridPosition
   }
   return validMoves;
 }
-export function getGreedyMove(board: GridValue[][], discColor: DiscColor): GridPosition {
+export function getComputerMove(board: GridValue[][], discColor: DiscColor): GridPosition {
   const validMoves: GridPosition[] = getValidMoves(board, discColor);
   let bestMove: GridPosition = { row: -99, col: -99 };
   let bestScore: number = -Infinity;
