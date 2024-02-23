@@ -29,9 +29,11 @@ function GamePage(): JSX.Element | null {
   const [currentTurn, setCurrentTurn] = useState<DiscColor>("B");
   const [popupVisible, setPopupVisible] = useState(false);
   const [popupMessage, setPopupMessage] = useState<MessageType>("");
+  const [isComputerTurn, setIsComputerTurn] = useState(false);
 
   useEffect(() => {
     if (currentTurn === opposingDiscColor && !popupVisible) {
+      setIsComputerTurn(true);
       const waitForPopupClosed = setInterval(() => {
         if (!popupVisible) {
           clearInterval(waitForPopupClosed);
@@ -42,6 +44,7 @@ function GamePage(): JSX.Element | null {
             ) as HTMLButtonElement;
             if (selectedCell) {
               selectedCell.click();
+              setIsComputerTurn(false);
             }
           }, 1000);
         }
@@ -66,18 +69,11 @@ function GamePage(): JSX.Element | null {
       setCurrentTurn(nextTurn);
     }
     setBoard(updatedBoard);
-
-    // if (nextTurn === opposingDiscColor) {
-    //   computerMakeMove(updatedBoard);
-    // }
   };
-
-  // if (currentTurn === opposingDiscColor && board === initialBoard) {
-  //   computerMakeMove(board);
-  // }
 
   return (
     <div className="game-page-container">
+      {isComputerTurn && <div className="overlay" />}
       <GameBoard board={markValidMoves(currentTurn, board)} discColor={currentTurn} onBoardPlay={updateGame} />
       <ScoreBoard
         difficulty={difficulty}
