@@ -34,21 +34,16 @@ function GamePage(): JSX.Element | null {
   useEffect(() => {
     if (currentTurn === opposingDiscColor && !popupVisible) {
       setIsComputerTurn(true);
-      const waitForPopupClosed = setInterval(() => {
-        if (!popupVisible) {
-          clearInterval(waitForPopupClosed);
-          setTimeout(() => {
-            const bestMove = getComputerMove(board, opposingDiscColor);
-            const selectedCell = document.querySelector(
-              `.gameboard-grid[key-data="${bestMove.row}-${bestMove.col}"]`
-            ) as HTMLButtonElement;
-            if (selectedCell) {
-              selectedCell.click();
-              setIsComputerTurn(false);
-            }
-          }, 1000);
+      setTimeout(() => {
+        const bestMove = getComputerMove({ board, discColor: opposingDiscColor });
+        const selectedCell = document.querySelector(
+          `.gameboard-grid[data-position="${bestMove.row}-${bestMove.col}"]`
+        ) as HTMLButtonElement;
+        if (selectedCell) {
+          selectedCell.click();
+          setIsComputerTurn(false);
         }
-      }, 500);
+      }, 1000);
     }
   }, [board, currentTurn, opposingDiscColor, popupVisible]);
 
