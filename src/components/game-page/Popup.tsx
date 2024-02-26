@@ -23,21 +23,20 @@ export default function Popup({ show, messageType, onClose, score }: PopupProps)
       {score.playerScore > score.computerScore
         ? "Congratulations! You have win the game!"
         : "Looks like the tiles didn't flip in your favor this time. Better luck next time!"}
-      <br />
-      Scores: <br />
-      <div className="popup--score">
+      <div className="popup--score-title">Scores:</div>
+      <div className="popup--score-result">
         <span>{`Player: ${score.playerScore}`}</span>
         <span> - </span>
         <span>{`Computer: ${score.computerScore}`}</span>
       </div>
-      <button className="popup-button" type="button" onClick={() => navigate("/")}>
-        Return to homepage
+      <button className="popup--end-button" type="button" onClick={() => navigate("/")}>
+        Go to homepage
       </button>
-      <button className="popup-button" type="button" onClick={onClose}>
-        Restart a game
+      <button className="popup--end-button" type="button" onClick={onClose}>
+        Start a new game
       </button>
     </div>
   );
 
-  return <div className={`popup popup${show ? "--show" : ""}`}>{popupContent}</div>;
+  return <div className={`popup popup${show ? "--show" : ""}`}>{messageType !== "" && popupContent}</div>;
 }
