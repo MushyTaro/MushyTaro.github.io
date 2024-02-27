@@ -58,16 +58,3 @@ export function markValidMoves(currentDiscColor: DiscColor, board: GridValue[][]
 
   return boardCopy;
 }
-
-export function getValidMoves({ board, discColor }: DiscColorBoardState): GridPosition[] {
-  const validMoves = [];
-  const markedValidBoard = markValidMoves(discColor, board);
-  for (let row = 0; row < markedValidBoard.length; row += 1) {
-    for (let col = 0; col < markedValidBoard[row].length; col += 1) {
-      if (markedValidBoard[row][col] === "V") {
-        validMoves.push({ row, col });
-      }
-    }
-  }
-  return validMoves;
-}
