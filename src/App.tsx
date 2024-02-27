@@ -9,7 +9,7 @@ const App = () => (
   <Router>
     <Routes>
       <Route path="/" element={<MainPage />} />
-      <Route path="/game/:difficulty/:playerDiscColor" element={<GamePage />} />
+      <Route path="/game/:playerDiscColor" element={<GamePage />} />
     </Routes>
   </Router>
 );
