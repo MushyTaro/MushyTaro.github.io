@@ -13,16 +13,18 @@ export default function Popup({ show, messageType, onClose, score }: PopupProps)
   const navigate = useNavigate();
   const popupContent = messageType.startsWith("skip") ? (
     <div className="popup-content">
-      {`${messageType.substring(4)} turn has been skipped due to no valid moves`}
+      <span>{`${messageType.substring(4)} turn has been skipped due to no valid moves`}</span>
       <button type="button" onClick={onClose}>
         Ok
       </button>
     </div>
   ) : (
     <div className="popup-content">
-      {score.playerScore > score.computerScore
-        ? "Congratulations! You have win the game!"
-        : "Looks like the tiles didn't flip in your favor this time. Better luck next time!"}
+      <span>
+        {score.playerScore > score.computerScore
+          ? "Congratulations! You have win the game!"
+          : "Looks like the tiles didn't flip in your favor this time. Better luck next time!"}
+      </span>
       <div className="popup--score-title">Scores:</div>
       <div className="popup--score-result">
         <span>{`Player: ${score.playerScore}`}</span>
@@ -38,5 +40,5 @@ export default function Popup({ show, messageType, onClose, score }: PopupProps)
     </div>
   );
 
-  return <div className={`popup popup${show ? "--show" : ""}`}>{messageType !== "" && popupContent}</div>;
+  return <div className={`popup popup${show ? "--show" : ""}`}>{popupContent}</div>;
 }
