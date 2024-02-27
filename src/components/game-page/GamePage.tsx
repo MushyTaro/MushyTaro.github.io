@@ -38,7 +38,7 @@ function GamePage(): JSX.Element | null {
       currentTurn,
       discColor: playerDiscColor,
     });
-    if (message !== "") {
+    if (message) {
       setPopupMessage(message);
       setPopupVisible(true);
     } else {

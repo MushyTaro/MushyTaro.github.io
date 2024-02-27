@@ -22,7 +22,7 @@ export default function handleTurn({
     return { nextTurn, message: "end" };
   }
   if (!isValidMoveAvailable && isBoardNotFull) {
-    nextTurn = currentTurn === "B" ? "B" : "W";
+    nextTurn = currentTurn;
     markedUpdatedBoard = markValidMoves(nextTurn, updatedBoardCopy);
     isValidMoveAvailable = markedUpdatedBoard.some((row) => row.includes("V"));
     if (!isValidMoveAvailable) {

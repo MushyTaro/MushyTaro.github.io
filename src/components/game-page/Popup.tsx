@@ -15,7 +15,7 @@ export default function Popup({ show, messageType, onClose }: PopupProps): JSX.E
   return (
     <div className={`popup popup${show ? "--show" : ""}`}>
       <div className="popup-content">
-        {messageType !== "" && <span>{messageContent}</span>}
+        {messageType && <span>{messageContent}</span>}
         <button type="button" onClick={onClose}>
           Ok
         </button>
