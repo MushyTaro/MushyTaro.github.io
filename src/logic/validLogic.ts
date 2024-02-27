@@ -14,7 +14,7 @@ export function getDiscsToFlip(gridPosition: GridPosition, discColorBoardState: 
           currentRow < boardCopy.length &&
           currentCol >= 0 &&
           currentCol < boardCopy[currentRow].length &&
-          boardCopy[currentRow][currentCol] !== "" &&
+          boardCopy[currentRow][currentCol] &&
           boardCopy[currentRow][currentCol] !== "V" &&
           boardCopy[currentRow][currentCol] !== discColorBoardState.discColor
         ) {
@@ -45,7 +45,7 @@ export function markValidMoves(currentDiscColor: DiscColor, board: GridValue[][]
 
   for (let row = 0; row < board.length; row += 1) {
     for (let col = 0; col < board[row].length; col += 1) {
-      if (board[row][col] === "" || board[row][col] === "V") {
+      if (!board[row][col] || board[row][col] === "V") {
         const discsToFlip = getDiscsToFlip({ row, col }, { discColor: currentDiscColor, board });
         if (discsToFlip.length) {
           boardCopy[row][col] = "V";

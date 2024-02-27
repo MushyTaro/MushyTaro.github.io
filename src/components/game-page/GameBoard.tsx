@@ -19,7 +19,7 @@ function Grid({ value, onSquareClick }: { value: GridValue; onSquareClick: () =>
   }
   return (
     <div className="gameboard-grid">
-      {value !== "" && (
+      {value && (
         <img
           className="gameboard-grid__disc"
           src={value === "W" ? white_disc_imagePath : black_disc_imagePath}
