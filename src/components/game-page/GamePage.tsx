@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import calculateScore from "../../logic/calculateScore";
+import getComputerMove from "../../logic/getComputerMove";
 import handleTurn from "../../logic/handleTurn";
 import { markValidMoves } from "../../logic/validLogic";
 import { Difficulty, DiscColor, GridValue, MessageType } from "../../types";
@@ -22,11 +23,26 @@ function GamePage(): JSX.Element | null {
   initialBoard[centerRow][centerCol] = "W";
   initialBoard[centerRow - 1][centerCol] = "B";
   initialBoard[centerRow][centerCol - 1] = "B";
-
+  const computerDiscColor = playerDiscColor === "W" ? "B" : "W";
   const [board, setBoard] = useState<GridValue[][]>(initialBoard);
   const [currentTurn, setCurrentTurn] = useState<DiscColor>("B");
   const [popupVisible, setPopupVisible] = useState(false);
   const [popupMessage, setPopupMessage] = useState<MessageType>("");
+  const overlayVisible = currentTurn === computerDiscColor && !popupVisible;
+
+  useEffect(() => {
+    if (overlayVisible) {
+      setTimeout(() => {
+        const bestMove = getComputerMove({ board, discColor: computerDiscColor });
+        const selectedCell = document.querySelector(
+          `.gameboard-grid[data-row="${bestMove.row}"][data-col="${bestMove.col}"]`
+        ) as HTMLButtonElement;
+        if (selectedCell) {
+          selectedCell.click();
+        }
+      }, 1000);
+    }
+  }, [board, computerDiscColor, currentTurn, overlayVisible]);
 
   if (!difficulty || !playerDiscColor) {
     return null;
@@ -49,6 +65,7 @@ function GamePage(): JSX.Element | null {
 
   return (
     <div className="game-page-container">
+      {overlayVisible && <div className="overlay" />}
       <GameBoard board={markValidMoves(currentTurn, board)} discColor={currentTurn} onBoardPlay={updateGame} />
       <ScoreBoard
         difficulty={difficulty}
