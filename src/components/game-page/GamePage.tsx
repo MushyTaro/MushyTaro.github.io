@@ -19,7 +19,7 @@ function GamePage(): JSX.Element | null {
   const initialBoard: GridValue[][] = Array.from({ length: 8 }, () => Array(8).fill(""));
   const centerRow = Math.floor(initialBoard.length / 2);
   const centerCol = Math.floor(initialBoard[0].length / 2);
-  const opposingDiscColor = playerDiscColor === "W" ? "B" : "W";
+  const computerDiscColor = playerDiscColor === "W" ? "B" : "W";
   initialBoard[centerRow - 1][centerCol - 1] = "W";
   initialBoard[centerRow][centerCol] = "W";
   initialBoard[centerRow - 1][centerCol] = "B";
@@ -29,23 +29,21 @@ function GamePage(): JSX.Element | null {
   const [currentTurn, setCurrentTurn] = useState<DiscColor>("B");
   const [popupVisible, setPopupVisible] = useState(false);
   const [popupMessage, setPopupMessage] = useState<MessageType>("");
-  const [isComputerTurn, setIsComputerTurn] = useState(false);
+  const overlayVisible = currentTurn === computerDiscColor && !popupVisible;
 
   useEffect(() => {
-    if (currentTurn === opposingDiscColor && !popupVisible) {
-      setIsComputerTurn(true);
+    if (overlayVisible) {
       setTimeout(() => {
-        const bestMove = getComputerMove({ board, discColor: opposingDiscColor });
+        const bestMove = getComputerMove({ board, discColor: computerDiscColor });
         const selectedCell = document.querySelector(
-          `.gameboard-grid[data-position="${bestMove.row}-${bestMove.col}"]`
+          `.gameboard-grid[data-row="${bestMove.row}"][data-col="${bestMove.col}"]`
         ) as HTMLButtonElement;
         if (selectedCell) {
           selectedCell.click();
-          setIsComputerTurn(false);
         }
       }, 1000);
     }
-  }, [board, currentTurn, opposingDiscColor, popupVisible]);
+  }, [board, computerDiscColor, currentTurn, overlayVisible]);
 
   if (!difficulty || !playerDiscColor) {
     return null;
@@ -68,7 +66,7 @@ function GamePage(): JSX.Element | null {
 
   return (
     <div className="game-page-container">
-      {isComputerTurn && <div className="overlay" />}
+      {overlayVisible && <div className="overlay" />}
       <GameBoard board={markValidMoves(currentTurn, board)} discColor={currentTurn} onBoardPlay={updateGame} />
       <ScoreBoard
         difficulty={difficulty}
