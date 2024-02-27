@@ -3,15 +3,14 @@ import { useParams } from "react-router-dom";
 import calculateScore from "../../logic/calculateScore";
 import handleTurn from "../../logic/handleTurn";
 import { markValidMoves } from "../../logic/validLogic";
-import { Difficulty, DiscColor, GridValue, MessageType } from "../../types";
+import { DiscColor, GridValue, MessageType } from "../../types";
 import GameBoard from "./GameBoard";
 import Popup from "./Popup";
 import "../../styles/game-page/GamePage.css";
 import ScoreBoard from "./ScoreBoard";
 
 function GamePage(): JSX.Element | null {
-  const { difficulty, playerDiscColor } = useParams<{
-    difficulty: Difficulty;
+  const { playerDiscColor } = useParams<{
     playerDiscColor: DiscColor;
   }>();
 
@@ -28,7 +27,7 @@ function GamePage(): JSX.Element | null {
   const [popupVisible, setPopupVisible] = useState(false);
   const [popupMessage, setPopupMessage] = useState<MessageType>("");
 
-  if (!difficulty || !playerDiscColor) {
+  if (!playerDiscColor) {
     return null;
   }
 
@@ -51,7 +50,6 @@ function GamePage(): JSX.Element | null {
     <div className="game-page-container">
       <GameBoard board={markValidMoves(currentTurn, board)} discColor={currentTurn} onBoardPlay={updateGame} />
       <ScoreBoard
-        difficulty={difficulty}
         playerDiscColor={playerDiscColor}
         currentTurn={currentTurn}
         score={calculateScore({ discColor: playerDiscColor, board })}
