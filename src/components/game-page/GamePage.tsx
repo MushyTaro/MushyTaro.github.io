@@ -37,9 +37,7 @@ function GamePage(): JSX.Element | null {
         const selectedCell = document.querySelector(
           `.gameboard-grid[data-row="${bestMove.row}"][data-col="${bestMove.col}"]`
         ) as HTMLButtonElement;
-        if (selectedCell) {
-          selectedCell.click();
-        }
+        selectedCell.click();
       }, 1000);
     }
   }, [board, computerDiscColor, currentTurn, overlayVisible]);
