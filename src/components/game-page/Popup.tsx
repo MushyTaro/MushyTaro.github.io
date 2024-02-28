@@ -21,7 +21,9 @@ export default function Popup({ show, messageType, onClose, score }: PopupProps)
   ) : (
     <div className="popup-content">
       <span>
-        {score.playerScore > score.computerScore
+        {score.playerScore === score.computerScore
+          ? "It's a draw! Well played!"
+          : score.playerScore > score.computerScore
           ? "Congratulations! You have win the game!"
           : "Looks like the tiles didn't flip in your favor this time. Better luck next time!"}
       </span>
