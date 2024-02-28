@@ -57,7 +57,12 @@ function GamePage(): JSX.Element | null {
       <Popup
         show={popupVisible}
         messageType={popupMessage}
+        score={calculateScore({ discColor: playerDiscColor, board })}
         onClose={() => {
+          if (popupMessage === "end") {
+            setBoard(initialBoard);
+            setCurrentTurn("B");
+          }
           setPopupMessage("");
           setPopupVisible(false);
         }}
