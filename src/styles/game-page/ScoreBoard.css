@@ -17,12 +17,23 @@
 
 .score-board__player {
   justify-content: space-between;
-  background-color: blueviolet;
+  background-color: rgb(77, 24, 126);
+  opacity: 0.8;
 }
 
 .score-board__computer {
   justify-content: space-between;
   background-color: rgb(138, 109, 29);
+  opacity: 0.8;
+}
+
+.score-board__player--current {
+  background-color: rgb(135, 41, 224);
+  opacity: 1;
+}
+.score-board__computer--current {
+  background-color: rgb(241, 191, 53);
+  opacity: 1;
 }
 .score-board__text {
   justify-content: center;

@@ -1,9 +1,11 @@
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 import calculateScore from "../../logic/calculateScore";
+import handleTurn from "../../logic/handleTurn";
 import { markValidMoves } from "../../logic/validLogic";
-import { DiscColor, GridValue } from "../../types";
+import { DiscColor, GridValue, MessageType } from "../../types";
 import GameBoard from "./GameBoard";
+import Popup from "./Popup";
 import "../../styles/game-page/GamePage.css";
 import ScoreBoard from "./ScoreBoard";
 
@@ -19,20 +21,47 @@ function GamePage(): JSX.Element | null {
   initialBoard[centerRow][centerCol] = "W";
   initialBoard[centerRow - 1][centerCol] = "B";
   initialBoard[centerRow][centerCol - 1] = "B";
+
   const [board, setBoard] = useState<GridValue[][]>(initialBoard);
+  const [currentTurn, setCurrentTurn] = useState<DiscColor>("B");
+  const [popupVisible, setPopupVisible] = useState(false);
+  const [popupMessage, setPopupMessage] = useState<MessageType>("");
 
   if (!playerDiscColor) {
     return null;
   }
 
-  const updateBoard = (updatedBoard: GridValue[][]): void => {
+  const updateGame = (updatedBoard: GridValue[][]): void => {
+    const message = handleTurn({
+      board: updatedBoard,
+      currentTurn,
+      discColor: playerDiscColor,
+    });
+    if (message) {
+      setPopupMessage(message);
+      setPopupVisible(true);
+    } else {
+      setCurrentTurn(currentTurn === "B" ? "W" : "B");
+    }
     setBoard(updatedBoard);
   };
 
   return (
     <div className="game-page-container">
-      <GameBoard discColor={playerDiscColor} board={markValidMoves(playerDiscColor, board)} onBoardPlay={updateBoard} />
-      <ScoreBoard playerDiscColor={playerDiscColor} score={calculateScore({ discColor: playerDiscColor, board })} />
+      <GameBoard board={markValidMoves(currentTurn, board)} discColor={currentTurn} onBoardPlay={updateGame} />
+      <ScoreBoard
+        playerDiscColor={playerDiscColor}
+        currentTurn={currentTurn}
+        score={calculateScore({ discColor: playerDiscColor, board })}
+      />
+      <Popup
+        show={popupVisible}
+        messageType={popupMessage}
+        onClose={() => {
+          setPopupMessage("");
+          setPopupVisible(false);
+        }}
+      />
     </div>
   );
 }

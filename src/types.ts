@@ -1,5 +1,6 @@
 export type DiscColor = "B" | "W";
 export type GridValue = DiscColor | "" | "V";
+export type MessageType = "skipComputer" | "skipPlayer" | "end" | "";
 export interface DiscColorBoardState {
   discColor: DiscColor;
   board: GridValue[][];
