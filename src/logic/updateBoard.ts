@@ -5,7 +5,7 @@ interface GetComputerMoveInputs extends DiscColorBoardState {
   move: GridPosition;
 }
 
-export function updateBoard({ move, board, discColor }: GetComputerMoveInputs): GridValue[][] {
+export default function updateBoard({ move, board, discColor }: GetComputerMoveInputs): GridValue[][] {
   const boardCopy = board.map((row) => [...row]);
   const discsToFlip = getDiscsToFlip(move, { board: boardCopy, discColor });
   boardCopy[move.row][move.col] = discColor;
