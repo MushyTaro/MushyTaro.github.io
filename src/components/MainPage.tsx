@@ -1,15 +1,19 @@
 import "../styles/MainPage.css";
-import { useState } from "react";
+import { SetStateAction, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import black_disc_imagePath from "../assets/black-disc.png";
 import white_disc_imagePath from "../assets/white-disc.png";
 import { DiscColor, Difficulty } from "../types";
+import MainPagePopup from "./MainPagePopup";
 
 function MainPage(): JSX.Element {
   const [selectedDifficulty, setSelectedDifficulty] = useState<Difficulty>("Easy");
   const [selectedDiscColor, setSelectedDiscColor] = useState<DiscColor>("W");
-  const navigate = useNavigate();
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [isNewAccount, setIsNewAccount] = useState<boolean>(false);
 
+  const navigate = useNavigate();
   const handleDifficulty = (difficulty: Difficulty): void => {
     setSelectedDifficulty(difficulty);
   };
@@ -17,12 +21,50 @@ function MainPage(): JSX.Element {
     setSelectedDiscColor(playerDiscColor);
   };
 
+  const [showPopup, setShowPopup] = useState(true);
+
   const handleSubmit = (): void => {
-    navigate(`/game/${selectedDifficulty}/${selectedDiscColor}`);
+    localStorage.setItem("username", username);
+    localStorage.setItem("password", password);
+    navigate(`/game/${selectedDifficulty}/${selectedDiscColor}/`);
+  };
+
+  const handleSubmitCredentials = () => {
+    if (!isNewAccount) {
+      navigate("/game/Hard/B");
+      localStorage.setItem("username", username);
+      localStorage.setItem("password", password);
+    } else {
+      setShowPopup(false);
+    }
+  };
+
+  const handleUsernameChange = (event: { target: { value: SetStateAction<string> } }) => {
+    setUsername(event.target.value);
+  };
+
+  const handlePasswordChange = (event: { target: { value: SetStateAction<string> } }) => {
+    setPassword(event.target.value);
+  };
+
+  const handleCreateAccount = () => {
+    setIsNewAccount(!isNewAccount);
   };
 
   return (
     <div className="main-page-container">
+      {showPopup && (
+        <MainPagePopup
+          show={showPopup}
+          username={username}
+          password={password}
+          handleUsernameChange={handleUsernameChange}
+          handlePasswordChange={handlePasswordChange}
+          handleSubmit={handleSubmitCredentials}
+          handleCreateAccount={handleCreateAccount}
+          isNewAccount={isNewAccount}
+        />
+      )}
       <h1 className="game-title ">Reversi</h1>
       <div className="difficulty">
         Difficulty:
