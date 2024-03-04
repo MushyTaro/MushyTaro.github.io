@@ -24,24 +24,24 @@ const MainPagePopup: React.FC<PopupProps> = ({
   isNewAccount,
   errorMessageShow,
 }) => (
-  <div className={`popup popup${show ? "--show" : ""}`}>
-    <div className="popup-content">
-      <span>{isNewAccount ? "Create Account" : "Login"}</span>
+  <div className={`main-page-popup main-page-popup${show ? "--show" : ""}`}>
+    <div className="main-page-popup-content">
+      <h2>{isNewAccount ? "Create Account" : "Login"}</h2>
       <form onSubmit={handleSubmit}>
-        <div className="popup-content__form-group">
+        <div className="main-page-popup-content__form-group">
           <input type="text" placeholder="Username" value={username} onChange={handleUsernameChange} />
         </div>
-        <div className="popup-content__form-group">
+        <div className="main-page-popup-content__form-group">
           <input type="password" placeholder="Password" value={password} onChange={handlePasswordChange} />
         </div>
         {errorMessageShow && (
-          <span className="popup-content__error-message">
+          <span className="main-page-popup-content__error-message">
             {isNewAccount ? "❗Account Has been taken" : "❗Username/Password not found"}
           </span>
         )}
-        <div className="popup-content__button-group">
+        <div className="main-page-popup-content__button-group">
           <button type="button" onClick={handleCreateAccount}>
-            {isNewAccount ? "Return" : "Create new account"}
+            {isNewAccount ? "Login" : "Create new account"}
           </button>
           <button type="submit">Submit</button>
         </div>

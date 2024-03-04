@@ -7,7 +7,7 @@ import handleTurn from "../../logic/handleTurn";
 import { markValidMoves } from "../../logic/validLogic";
 import { DiscColor, GridValue, MessageType } from "../../types";
 import GameBoard from "./GameBoard";
-import Popup from "./Popup";
+import GameStatusPopup from "./GameStatusPopup";
 import "../../styles/game-page/GamePage.css";
 import ScoreBoard from "./ScoreBoard";
 
@@ -102,7 +102,7 @@ function GamePage(): JSX.Element | null {
         currentTurn={currentTurn}
         score={calculateScore({ discColor: playerDiscColor, board })}
       />
-      <Popup
+      <GameStatusPopup
         show={popupVisible}
         messageType={popupMessage}
         score={calculateScore({ discColor: playerDiscColor, board })}
