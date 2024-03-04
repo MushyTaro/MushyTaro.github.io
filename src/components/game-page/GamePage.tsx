@@ -12,6 +12,8 @@ import "../../styles/game-page/GamePage.css";
 import ScoreBoard from "./ScoreBoard";
 
 function GamePage(): JSX.Element | null {
+  const username = localStorage.getItem("username");
+  const password = localStorage.getItem("password");
   const initialBoard: GridValue[][] = Array.from({ length: 8 }, () => Array(8).fill(""));
   const centerRow = Math.floor(initialBoard.length / 2);
   const centerCol = Math.floor(initialBoard[0].length / 2);
@@ -24,13 +26,10 @@ function GamePage(): JSX.Element | null {
   const [popupVisible, setPopupVisible] = useState(false);
   const [popupMessage, setPopupMessage] = useState<MessageType>("");
   const [isFetching, setIsFetching] = useState<boolean>(true);
-  const navigate = useNavigate();
-  const username = localStorage.getItem("username");
-  const password = localStorage.getItem("password");
   const [playerDiscColor, setPlayerDiscColor] = useState(localStorage.getItem("playerDiscColor") as DiscColor);
   const computerDiscColor = (playerDiscColor === "W" ? "B" : "W") as DiscColor;
   const overlayVisible = currentTurn === computerDiscColor && !popupVisible;
-
+  const navigate = useNavigate();
   useEffect(() => {
     if (overlayVisible && !isFetching) {
       setTimeout(() => {

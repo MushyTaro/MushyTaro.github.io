@@ -36,7 +36,7 @@ const MainPagePopup: React.FC<PopupProps> = ({
         </div>
         {errorMessageShow && (
           <span className="main-page-popup-content__error-message">
-            {isNewAccount ? "❗Account Has been taken" : "❗Username/Password not found"}
+            {isNewAccount ? "❗Username Has been taken" : "❗Incorrect username/password"}
           </span>
         )}
         <div className="main-page-popup-content__button-group">
