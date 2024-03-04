@@ -40,7 +40,7 @@ const MainPagePopup: React.FC<PopupProps> = ({
           </span>
         )}
         <div className="main-page-popup-content__button-group">
-          <button type="button" onClick={handleCreateAccount}>
+          <button type="button" className="main-page-popup__end-button--route" onClick={handleCreateAccount}>
             {isNewAccount ? "Login" : "Create new account"}
           </button>
           <button type="submit">Submit</button>
