@@ -15,20 +15,20 @@ function GamePage(): JSX.Element | null {
   const username = localStorage.getItem("username");
   const password = localStorage.getItem("password");
   const initialBoard: GridValue[][] = Array.from({ length: 8 }, () => Array(8).fill(""));
+  const [board, setBoard] = useState<GridValue[][]>(Array.from({ length: 8 }, () => Array(8).fill("")));
   const centerRow = Math.floor(initialBoard.length / 2);
   const centerCol = Math.floor(initialBoard[0].length / 2);
   initialBoard[centerRow - 1][centerCol - 1] = "W";
   initialBoard[centerRow][centerCol] = "W";
   initialBoard[centerRow - 1][centerCol] = "B";
   initialBoard[centerRow][centerCol - 1] = "B";
-  const [board, setBoard] = useState<GridValue[][]>(initialBoard);
   const [currentTurn, setCurrentTurn] = useState<DiscColor>("B");
   const [popupVisible, setPopupVisible] = useState(false);
   const [popupMessage, setPopupMessage] = useState<MessageType>("");
   const [isFetching, setIsFetching] = useState<boolean>(true);
   const [playerDiscColor, setPlayerDiscColor] = useState(localStorage.getItem("playerDiscColor") as DiscColor);
   const computerDiscColor = (playerDiscColor === "W" ? "B" : "W") as DiscColor;
-  const overlayVisible = currentTurn === computerDiscColor && !popupVisible && !isFetching;
+  const overlayVisible = currentTurn === computerDiscColor && !popupVisible;
   const navigate = useNavigate();
   useEffect(() => {
     if (overlayVisible && !isFetching) {
@@ -64,10 +64,12 @@ function GamePage(): JSX.Element | null {
         } else {
           uploadAccount(username, false);
           uploadGameState(username, password, initialBoard, "B", playerDiscColor, "");
+          setBoard(initialBoard);
         }
       } else {
         uploadAccount(username, false);
         uploadGameState(username, password, initialBoard, "B", playerDiscColor, "");
+        setBoard(initialBoard);
       }
     };
     fetchGameStateData();
@@ -91,10 +93,14 @@ function GamePage(): JSX.Element | null {
   };
   return (
     <div className="game-page-container">
-      {overlayVisible && (
+      {(overlayVisible || board.every((row) => row.every((cell) => cell === ""))) && (
         <div className="overlay">
           <div className="overlay__content">
-            <span>The computer is making a move....</span>
+            <span>
+              {board.every((row) => row.every((cell) => cell === ""))
+                ? "Fetching data....."
+                : "The computer is making a move...."}
+            </span>
           </div>
         </div>
       )}
