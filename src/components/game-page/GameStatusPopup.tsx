@@ -34,7 +34,7 @@ export default function GameStatusPopup({ show, messageType, onClose, onNavigate
         <span> - </span>
         <span>{`Computer: ${score.computerScore}`}</span>
       </div>
-      <button className="game-page-popup--end-button " type="button" onClick={onNavigate}>
+      <button className="game-page-popup--end-button" type="button" onClick={onNavigate}>
         Go to homepage
       </button>
       <button className="game-page-popup--end-button" type="button" onClick={onClose}>

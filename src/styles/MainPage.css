@@ -39,6 +39,7 @@
   background-color: #29bbce;
   color: #fff;
 }
+
 .submit-button:hover {
-  background-color: #2980b9;
+  background-color: rgb(2, 116, 116);
 }
