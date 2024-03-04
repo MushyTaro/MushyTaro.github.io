@@ -12,7 +12,9 @@ interface PopupProps {
 export default function GameStatusPopup({ show, messageType, onClose, onNavigate, score }: PopupProps): JSX.Element {
   const popupContent = messageType.startsWith("skip") ? (
     <div className="game-page-popup-content">
-      <span>{`${messageType.substring(4)} turn has been skipped due to no valid moves`}</span>
+      <span>{`${messageType.substring(
+        4
+      )} turn has been skipped due to no available moves to flip any opponent's discs`}</span>
       <button type="button" onClick={onClose}>
         Ok
       </button>

@@ -11,3 +11,14 @@
   height: 100%;
   z-index: 1;
 }
+
+.overlay__content {
+  background-color: white;
+  margin: 0px auto;
+  padding: 10px;
+  border: 1px solid #888888;
+  width: 30%;
+  font-size: 1.2rem;
+  text-align: center;
+  color: black;
+}

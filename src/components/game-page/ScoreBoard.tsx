@@ -19,7 +19,7 @@ export default function ScoreBoard({ playerDiscColor, score, currentTurn }: Scor
         </div>
       </div>
       <span className="score-board__text">Scores</span>
-      <div className={`score-board__computer score-board__computer${computerTurn}`}>
+      <div className={`score-board__player score-board__player${computerTurn}`}>
         <div className={`score-board__computer__disc score-board__computer__disc${computerScoreDisc}`}>
           {score.computerScore}
         </div>

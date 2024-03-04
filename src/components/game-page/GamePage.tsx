@@ -28,7 +28,7 @@ function GamePage(): JSX.Element | null {
   const [isFetching, setIsFetching] = useState<boolean>(true);
   const [playerDiscColor, setPlayerDiscColor] = useState(localStorage.getItem("playerDiscColor") as DiscColor);
   const computerDiscColor = (playerDiscColor === "W" ? "B" : "W") as DiscColor;
-  const overlayVisible = currentTurn === computerDiscColor && !popupVisible;
+  const overlayVisible = currentTurn === computerDiscColor && !popupVisible && !isFetching;
   const navigate = useNavigate();
   useEffect(() => {
     if (overlayVisible && !isFetching) {
@@ -48,7 +48,6 @@ function GamePage(): JSX.Element | null {
     navigate("/");
     return null;
   }
-
   if (isFetching) {
     const fetchGameStateData = async () => {
       const fetchedAccountData = await fetchAccountData(username);
@@ -90,10 +89,15 @@ function GamePage(): JSX.Element | null {
     }
     setBoard(updatedBoard);
   };
-
   return (
     <div className="game-page-container">
-      {overlayVisible && <div className="overlay" />}
+      {overlayVisible && (
+        <div className="overlay">
+          <div className="overlay__content">
+            <span>The computer is making a move....</span>
+          </div>
+        </div>
+      )}
 
       <GameBoard board={markValidMoves(currentTurn, board)} discColor={currentTurn} onBoardPlay={updateGame} />
       <ScoreBoard
