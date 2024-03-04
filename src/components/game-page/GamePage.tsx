@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import calculateScore from "../../logic/calculateScore";
+import { fetchAccountData, fetchGameData, uploadAccount, uploadGameState } from "../../logic/gameStateLogic";
 import getComputerMove from "../../logic/getComputerMove";
 import handleTurn from "../../logic/handleTurn";
 import { markValidMoves } from "../../logic/validLogic";
@@ -11,16 +12,9 @@ import "../../styles/game-page/GamePage.css";
 import ScoreBoard from "./ScoreBoard";
 
 function GamePage(): JSX.Element | null {
-  const { playerDiscColor } = useParams<{
-    playerDiscColor: DiscColor;
-    username: string;
-    password: string;
-  }>();
-
   const initialBoard: GridValue[][] = Array.from({ length: 8 }, () => Array(8).fill(""));
   const centerRow = Math.floor(initialBoard.length / 2);
   const centerCol = Math.floor(initialBoard[0].length / 2);
-  const computerDiscColor = playerDiscColor === "W" ? "B" : "W";
   initialBoard[centerRow - 1][centerCol - 1] = "W";
   initialBoard[centerRow][centerCol] = "W";
   initialBoard[centerRow - 1][centerCol] = "B";
@@ -29,78 +23,13 @@ function GamePage(): JSX.Element | null {
   const [currentTurn, setCurrentTurn] = useState<DiscColor>("B");
   const [popupVisible, setPopupVisible] = useState(false);
   const [popupMessage, setPopupMessage] = useState<MessageType>("");
-  const overlayVisible = currentTurn === computerDiscColor && !popupVisible;
   const [isFetching, setIsFetching] = useState<boolean>(true);
   const navigate = useNavigate();
   const username = localStorage.getItem("username");
   const password = localStorage.getItem("password");
-
-  if (!username || !password) {
-    navigate("/");
-  }
-
-  useEffect(() => {
-    // Fetch data from the database when the component mounts
-    const createAccount = async () => {
-      const endpointUrl = "https://fi3si9acoa.execute-api.ap-southeast-1.amazonaws.com/";
-      const requestBody = {
-        id: `${username}-${password}`,
-        data: {
-          board: initialBoard,
-          turn: "B",
-          playerDiscColor,
-          message: "",
-        },
-      };
-      // Make a POST request using Fetch
-      fetch(endpointUrl, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(requestBody),
-      })
-        .then((response) => {
-          if (!response.ok) {
-            throw new Error("Network response was not ok");
-          }
-          return response.json();
-        })
-        .then((data) => {
-          console.log("Response:", data);
-          // Handle the response data here
-        })
-        .catch((error) => {
-          console.error("Error:", error);
-          // Handle errors here
-        });
-    };
-    const fetchData = async () => {
-      try {
-        // Make a fetch request to your backend API endpoint to fetch data from the database
-        const endpointUrl = `https://fi3si9acoa.execute-api.ap-southeast-1.amazonaws.com/?id=${username}-${password}`;
-        const response = await fetch(endpointUrl);
-        if (!response.ok) {
-          throw new Error("Failed to fetch data");
-        }
-        const data = await response.json();
-        // Update the state with the fetched data
-        console.log(data);
-        setBoard(data.data.board);
-        setCurrentTurn(data.data.turn);
-        if (data.data.message) {
-          setPopupMessage(data.data.message);
-          setPopupVisible(true);
-        }
-      } catch (error) {
-        console.error("Error fetching data:", error);
-        createAccount();
-        // Handle error
-      }
-      setIsFetching(false);
-    };
-    fetchData();
-  }, [password, username]);
+  const [playerDiscColor, setPlayerDiscColor] = useState(localStorage.getItem("playerDiscColor") as DiscColor);
+  const computerDiscColor = (playerDiscColor === "W" ? "B" : "W") as DiscColor;
+  const overlayVisible = currentTurn === computerDiscColor && !popupVisible;
 
   useEffect(() => {
     if (overlayVisible && !isFetching) {
@@ -114,10 +43,37 @@ function GamePage(): JSX.Element | null {
         }
       }, 1000);
     }
-  }, [board, computerDiscColor, currentTurn, overlayVisible]);
+  }, [board, computerDiscColor, currentTurn, isFetching, overlayVisible]);
 
-  if (!playerDiscColor || !username || !password) {
+  if (!(playerDiscColor === "B" || playerDiscColor === "W") || !username || !password) {
+    navigate("/");
     return null;
+  }
+
+  if (isFetching) {
+    const fetchGameStateData = async () => {
+      const fetchedAccountData = await fetchAccountData(username);
+      if (fetchedAccountData && !fetchedAccountData.isGameEnded) {
+        const fetchedData = await fetchGameData(username, password);
+        if (fetchedData) {
+          setBoard(fetchedData.board);
+          setCurrentTurn(fetchedData.turn);
+          setPlayerDiscColor(fetchedData.playerDiscColor);
+          if (fetchedData.message) {
+            setPopupMessage(fetchedData.message);
+            setPopupVisible(true);
+          }
+        } else {
+          uploadAccount(username, false);
+          uploadGameState(username, password, initialBoard, "B", playerDiscColor, "");
+        }
+      } else {
+        uploadAccount(username, false);
+        uploadGameState(username, password, initialBoard, "B", playerDiscColor, "");
+      }
+    };
+    fetchGameStateData();
+    setIsFetching(false);
   }
 
   const updateGame = (updatedBoard: GridValue[][]): void => {
@@ -126,38 +82,7 @@ function GamePage(): JSX.Element | null {
       currentTurn,
       discColor: playerDiscColor,
     });
-    const endpointUrl = "https://fi3si9acoa.execute-api.ap-southeast-1.amazonaws.com/";
-    const requestBody = {
-      id: `${username}-${password}`,
-      data: {
-        board: updatedBoard,
-        turn: nextTurn,
-        playerDiscColor,
-        message,
-      },
-    };
-    // Make a POST request using Fetch
-    fetch(endpointUrl, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(requestBody),
-    })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
-        return response.json();
-      })
-      .then((data) => {
-        console.log("Response:", data);
-        // Handle the response data here
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-        // Handle errors here
-      });
+    uploadGameState(username, password, updatedBoard, nextTurn, playerDiscColor, message);
     if (message) {
       setPopupMessage(message);
       setPopupVisible(true);
@@ -166,6 +91,7 @@ function GamePage(): JSX.Element | null {
     }
     setBoard(updatedBoard);
   };
+
   return (
     <div className="game-page-container">
       {overlayVisible && <div className="overlay" />}
@@ -183,10 +109,13 @@ function GamePage(): JSX.Element | null {
         onClose={() => {
           if (popupMessage === "end") {
             setBoard(initialBoard);
-            setCurrentTurn("B");
           }
           setPopupMessage("");
           setPopupVisible(false);
+        }}
+        onNavigate={() => {
+          uploadAccount(username, true);
+          navigate("/");
         }}
       />
     </div>

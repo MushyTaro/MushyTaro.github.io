@@ -1,5 +1,5 @@
 import React, { ChangeEvent, FormEvent } from "react";
-import "../styles/game-page/Popup.css";
+import "../styles/MainPagePopup.css";
 
 interface PopupProps {
   show: boolean;
@@ -10,6 +10,7 @@ interface PopupProps {
   handleSubmit: (event: FormEvent<HTMLFormElement>) => void;
   handleCreateAccount: () => void;
   isNewAccount: boolean;
+  errorMessageShow: boolean;
 }
 
 const MainPagePopup: React.FC<PopupProps> = ({
@@ -21,20 +22,30 @@ const MainPagePopup: React.FC<PopupProps> = ({
   handleSubmit,
   handleCreateAccount,
   isNewAccount,
+  errorMessageShow,
 }) => (
   <div className={`popup popup${show ? "--show" : ""}`}>
     <div className="popup-content">
       <span>{isNewAccount ? "Create Account" : "Login"}</span>
       <form onSubmit={handleSubmit}>
-        <input type="text" placeholder="Username" value={username} onChange={handleUsernameChange} />
-        <input type="password" placeholder="Password" value={password} onChange={handlePasswordChange} />
-        <button type="submit">Submit</button>
+        <div className="popup-content__form-group">
+          <input type="text" placeholder="Username" value={username} onChange={handleUsernameChange} />
+        </div>
+        <div className="popup-content__form-group">
+          <input type="password" placeholder="Password" value={password} onChange={handlePasswordChange} />
+        </div>
+        {errorMessageShow && (
+          <span className="popup-content__error-message">
+            {isNewAccount ? "❗Account Has been taken" : "❗Username/Password not found"}
+          </span>
+        )}
+        <div className="popup-content__button-group">
+          <button type="button" onClick={handleCreateAccount}>
+            {isNewAccount ? "Return" : "Create new account"}
+          </button>
+          <button type="submit">Submit</button>
+        </div>
       </form>
-      <p>
-        <button type="button" onClick={handleCreateAccount}>
-          {isNewAccount ? "Return" : "Create new account"}
-        </button>
-      </p>
     </div>
   </div>
 );

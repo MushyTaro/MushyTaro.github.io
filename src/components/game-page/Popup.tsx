@@ -1,4 +1,3 @@
-import { useNavigate } from "react-router-dom";
 import { MessageType, Scores } from "../../types";
 import "../../styles/game-page/Popup.css";
 
@@ -6,11 +5,11 @@ interface PopupProps {
   show: boolean;
   messageType: MessageType;
   onClose: () => void;
+  onNavigate: () => void;
   score: Scores;
 }
 
-export default function Popup({ show, messageType, onClose, score }: PopupProps): JSX.Element {
-  const navigate = useNavigate();
+export default function Popup({ show, messageType, onClose, onNavigate, score }: PopupProps): JSX.Element {
   const popupContent = messageType.startsWith("skip") ? (
     <div className="popup-content">
       <span>{`${messageType.substring(4)} turn has been skipped due to no valid moves`}</span>
@@ -33,7 +32,7 @@ export default function Popup({ show, messageType, onClose, score }: PopupProps)
         <span> - </span>
         <span>{`Computer: ${score.computerScore}`}</span>
       </div>
-      <button className="popup--end-button" type="button" onClick={() => navigate("/")}>
+      <button className="popup--end-button popup--end-button--route" type="button" onClick={onNavigate}>
         Go to homepage
       </button>
       <button className="popup--end-button" type="button" onClick={onClose}>

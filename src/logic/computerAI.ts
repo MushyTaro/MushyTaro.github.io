@@ -1,6 +1,6 @@
 import { GridPosition, DiscColorBoardState } from "../types";
 import calculateScore from "./calculateScore";
-import { updateBoard } from "./updateBoard";
+import updateBoard from "./updateBoard";
 import { markValidMoves } from "./validLogic";
 
 export function getComputerMove({ board, discColor }: DiscColorBoardState): GridPosition {

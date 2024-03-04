@@ -1,0 +1,55 @@
+.popup {
+  position: fixed;
+  display: none;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+
+  z-index: 1;
+}
+
+.popup--show {
+  display: block;
+  justify-content: center;
+  align-items: center;
+}
+
+.popup-content {
+  background-color: white;
+  padding: 30px;
+  width: 30%;
+}
+
+.popup-content span {
+  display: block;
+  margin-bottom: 25px;
+  font-size: 1.2rem;
+}
+.popup-content__error-message {
+  color: red;
+}
+
+.popup-content__form-group {
+  display: block;
+  margin-bottom: 8px;
+}
+.popup-content__form-group input {
+  height: 1.2rem;
+  width: 70%;
+  border: 1px solid #aaaaaa;
+  border-radius: 1px;
+}
+
+.popup-content__button-group {
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
+}
+.popup-content__button-group button {
+  margin: 0 10px;
+}
+.popup-content button {
+  padding: 5px 10px;
+  font-size: 1rem;
+  cursor: pointer;
+}

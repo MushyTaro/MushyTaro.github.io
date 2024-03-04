@@ -1,8 +1,9 @@
 import "../styles/MainPage.css";
-import { SetStateAction, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import black_disc_imagePath from "../assets/black-disc.png";
 import white_disc_imagePath from "../assets/white-disc.png";
+import { fetchAccountData } from "../logic/gameStateLogic";
 import { DiscColor } from "../types";
 import MainPagePopup from "./MainPagePopup";
 
@@ -11,6 +12,7 @@ function MainPage(): JSX.Element {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [isNewAccount, setIsNewAccount] = useState<boolean>(false);
+  const [errorMessageShow, setErrorMessageShow] = useState<boolean>(false);
   const navigate = useNavigate();
   const handleDiscColor = (playerDiscColor: DiscColor): void => {
     setSelectedDiscColor(playerDiscColor);
@@ -18,32 +20,11 @@ function MainPage(): JSX.Element {
 
   const [showPopup, setShowPopup] = useState(true);
 
-  const handleSubmit = (): void => {
+  const routeToGamePage = (): void => {
     localStorage.setItem("username", username);
     localStorage.setItem("password", password);
-    navigate(`/game/${selectedDiscColor}/`);
-  };
-
-  const handleSubmitCredentials = () => {
-    if (!isNewAccount) {
-      navigate(`/game/${selectedDiscColor}`);
-      localStorage.setItem("username", username);
-      localStorage.setItem("password", password);
-    } else {
-      setShowPopup(false);
-    }
-  };
-
-  const handleUsernameChange = (event: { target: { value: SetStateAction<string> } }) => {
-    setUsername(event.target.value);
-  };
-
-  const handlePasswordChange = (event: { target: { value: SetStateAction<string> } }) => {
-    setPassword(event.target.value);
-  };
-
-  const handleCreateAccount = () => {
-    setIsNewAccount(!isNewAccount);
+    localStorage.setItem("playerDiscColor", selectedDiscColor);
+    navigate("/game");
   };
 
   return (
@@ -53,13 +34,56 @@ function MainPage(): JSX.Element {
           show={showPopup}
           username={username}
           password={password}
-          handleUsernameChange={handleUsernameChange}
-          handlePasswordChange={handlePasswordChange}
-          handleSubmit={handleSubmitCredentials}
-          handleCreateAccount={handleCreateAccount}
+          handleUsernameChange={(event) => {
+            setErrorMessageShow(false);
+            setUsername(event.target.value);
+          }}
+          handlePasswordChange={(event) => {
+            setErrorMessageShow(false);
+            setPassword(event.target.value);
+          }}
+          handleSubmit={(event) => {
+            event.preventDefault();
+            if (!isNewAccount) {
+              (async () => {
+                const fetchedData = await fetchAccountData(username);
+                console.log("fetchedData");
+                console.log(fetchedData);
+                if (fetchedData) {
+                  if (!fetchedData.isGameEnded) {
+                    console.log(fetchedData.isGameEnded);
+                    routeToGamePage();
+                  } else {
+                    setShowPopup(false);
+                  }
+                } else {
+                  setErrorMessageShow(true);
+                }
+              })();
+            } else {
+              (async () => {
+                const fetchedData = await fetchAccountData(username);
+                console.log("fetchedData");
+                console.log(fetchedData);
+                if (fetchedData) {
+                  setErrorMessageShow(true);
+                } else {
+                  setShowPopup(false);
+                }
+              })();
+            }
+          }}
+          handleCreateAccount={() => {
+            setErrorMessageShow(false);
+            setUsername("");
+            setPassword("");
+            setIsNewAccount(!isNewAccount);
+          }}
           isNewAccount={isNewAccount}
+          errorMessageShow={errorMessageShow}
         />
       )}
+
       <h1 className="game-title ">Reversi</h1>
       <div className="disc-color">
         Play As:
@@ -80,7 +104,7 @@ function MainPage(): JSX.Element {
           <img className="disc-color__button__image" src={black_disc_imagePath} alt="Black Disc" />
         </button>
       </div>
-      <button type="button" className="submit-button" onClick={handleSubmit}>
+      <button type="button" className="submit-button" onClick={routeToGamePage}>
         Submit
       </button>
     </div>
