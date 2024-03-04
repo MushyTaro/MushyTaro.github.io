@@ -13,12 +13,8 @@ function MainPage(): JSX.Element {
   const [password, setPassword] = useState("");
   const [isNewAccount, setIsNewAccount] = useState<boolean>(false);
   const [errorMessageShow, setErrorMessageShow] = useState<boolean>(false);
-  const navigate = useNavigate();
-  const handleDiscColor = (playerDiscColor: DiscColor): void => {
-    setSelectedDiscColor(playerDiscColor);
-  };
-
   const [showPopup, setShowPopup] = useState(true);
+  const navigate = useNavigate();
 
   const routeToGamePage = (): void => {
     localStorage.setItem("username", username);
@@ -47,11 +43,8 @@ function MainPage(): JSX.Element {
             if (!isNewAccount) {
               (async () => {
                 const fetchedData = await fetchAccountData(username);
-                console.log("fetchedData");
-                console.log(fetchedData);
                 if (fetchedData) {
                   if (!fetchedData.isGameEnded) {
-                    console.log(fetchedData.isGameEnded);
                     routeToGamePage();
                   } else {
                     setShowPopup(false);
@@ -63,8 +56,6 @@ function MainPage(): JSX.Element {
             } else {
               (async () => {
                 const fetchedData = await fetchAccountData(username);
-                console.log("fetchedData");
-                console.log(fetchedData);
                 if (fetchedData) {
                   setErrorMessageShow(true);
                 } else {
@@ -91,7 +82,7 @@ function MainPage(): JSX.Element {
           type="button"
           tabIndex={0}
           className={`disc-color__button  disc-color__button${selectedDiscColor === "W" ? "--selected" : ""}`}
-          onClick={() => handleDiscColor("W")}
+          onClick={() => setSelectedDiscColor("W")}
         >
           <img className="disc-color__button__image" src={white_disc_imagePath} alt="White Disc" />
         </button>
@@ -99,7 +90,7 @@ function MainPage(): JSX.Element {
           type="button"
           tabIndex={0}
           className={`disc-color__button disc-color__button${selectedDiscColor === "B" ? "--selected" : ""}`}
-          onClick={() => handleDiscColor("B")}
+          onClick={() => setSelectedDiscColor("B")}
         >
           <img className="disc-color__button__image" src={black_disc_imagePath} alt="Black Disc" />
         </button>

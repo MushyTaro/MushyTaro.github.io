@@ -19,8 +19,7 @@ export async function fetchGameData(username: string, password: string): Promise
       throw new Error("Network response was not ok");
     }
     const data = await response.json();
-    // console.log("Fetch Game data");
-    // console.log(data);
+
     return data.data;
   } catch (error) {
     return null;
@@ -34,8 +33,7 @@ export async function fetchAccountData(username: string): Promise<FetchAccountDa
       throw new Error("Network response was not ok");
     }
     const data = await response.json();
-    // console.log("fetch account data");
-    // console.log(data);
+
     return data.data;
   } catch (error) {
     return null;
@@ -63,8 +61,6 @@ export async function uploadAccount(username: string, isGameEnded: boolean) {
       throw new Error("Network response was not ok");
     }
     const data = await response.json();
-    // console.log("post account data");
-    // console.log(data);
     return data.data;
   } catch (error) {
     // console.error("Error:", error);
@@ -101,8 +97,7 @@ export async function uploadGameState(
       throw new Error("Network response was not ok");
     }
     const data = await response.json();
-    // console.log("post game data");
-    // console.log(data);
+
     return data.data;
   } catch (error) {
     // console.error("Error:", error);
