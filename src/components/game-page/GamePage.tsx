@@ -28,7 +28,7 @@ function GamePage(): JSX.Element | null {
   const [isFetching, setIsFetching] = useState<boolean>(true);
   const [playerDiscColor, setPlayerDiscColor] = useState(localStorage.getItem("playerDiscColor") as DiscColor);
   const computerDiscColor = (playerDiscColor === "W" ? "B" : "W") as DiscColor;
-  const overlayVisible = currentTurn === computerDiscColor && !popupVisible && !isFetching;
+  const overlayVisible = currentTurn === computerDiscColor && !popupVisible;
   const navigate = useNavigate();
   useEffect(() => {
     if (overlayVisible && !isFetching) {
