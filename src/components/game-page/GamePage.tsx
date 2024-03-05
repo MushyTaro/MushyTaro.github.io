@@ -14,10 +14,11 @@ import ScoreBoard from "./ScoreBoard";
 function GamePage(): JSX.Element | null {
   const username = localStorage.getItem("username");
   const password = localStorage.getItem("password");
-  const initialBoard: GridValue[][] = Array.from({ length: 8 }, () => Array(8).fill(""));
-  const [board, setBoard] = useState<GridValue[][]>(Array.from({ length: 8 }, () => Array(8).fill("")));
-  const centerRow = Math.floor(initialBoard.length / 2);
-  const centerCol = Math.floor(initialBoard[0].length / 2);
+  const blankBoard: GridValue[][] = Array.from({ length: 8 }, () => Array(8).fill(""));
+  const [board, setBoard] = useState<GridValue[][]>(blankBoard);
+  const centerRow = Math.floor(blankBoard.length / 2);
+  const centerCol = Math.floor(blankBoard[0].length / 2);
+  const initialBoard = blankBoard.map((rowCopy) => [...rowCopy]);
   initialBoard[centerRow - 1][centerCol - 1] = "W";
   initialBoard[centerRow][centerCol] = "W";
   initialBoard[centerRow - 1][centerCol] = "B";
