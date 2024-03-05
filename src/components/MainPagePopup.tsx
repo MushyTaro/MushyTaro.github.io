@@ -39,12 +39,10 @@ const MainPagePopup: React.FC<PopupProps> = ({
             {isNewAccount ? "❗Username Has been taken" : "❗Incorrect username/password"}
           </span>
         )}
-        <div className="main-page-popup-content__button-group">
-          <button type="button" className="main-page-popup__end-button--route" onClick={handleCreateAccount}>
-            {isNewAccount ? "Login" : "Create new account"}
-          </button>
-          <button type="submit">Submit</button>
-        </div>
+        <button type="button" className="main-page-popup__end-button--route" onClick={handleCreateAccount}>
+          {isNewAccount ? "Login" : "Create new account"}
+        </button>
+        <button type="submit">Submit</button>
       </form>
     </div>
   </div>
