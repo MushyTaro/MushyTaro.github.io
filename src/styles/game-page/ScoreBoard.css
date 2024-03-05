@@ -17,18 +17,18 @@
 
 .score-board__player {
   justify-content: space-between;
-  background-color: rgb(77, 24, 126);
+  background-color: #be731d;
   opacity: 0.8;
 }
 
 .score-board__player--current {
-  background-color: rgb(135, 41, 224);
+  background-color: #ff8800;
   opacity: 1;
 }
 
 .score-board__text {
   justify-content: center;
-  background-color: rgb(156, 27, 135);
+  background-color: #4caf50;
 }
 
 .score-board__player__disc,

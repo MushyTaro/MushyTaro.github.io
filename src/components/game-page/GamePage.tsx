@@ -98,7 +98,7 @@ function GamePage(): JSX.Element | null {
           <div className="overlay__content">
             <span>
               {board.every((row) => row.every((cell) => cell === ""))
-                ? "Fetching data....."
+                ? "Loading Game....."
                 : "The computer is making a move...."}
             </span>
           </div>
