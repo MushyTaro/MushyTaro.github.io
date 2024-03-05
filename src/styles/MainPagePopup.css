@@ -42,19 +42,26 @@
 }
 
 .main-page-popup-content button {
-  margin: 10px 10px;
+  display: block;
+  margin: 10px auto 0px;
   padding: 10px 20px;
   border: none;
-  border-radius: 4px;
-  background-color: #4caf50;
-  color: white;
   font-size: 1rem;
 }
 
-.main-page-popup-content .main-page-popup__end-button--route {
-  background-color: #ee8e21;
+.main-page-popup__end-button {
+  border-radius: 4px;
+  background-color: #4caf50;
+  color: white;
+}
+.main-page-popup__end-button--route {
+  background: none;
+  border: none;
+  color: blue;
+  text-decoration: underline;
+  cursor: pointer;
 }
 
-.main-page-popup-content .main-page-popup__end-button--route:hover {
-  background-color: #ec8510;
+.main-page-popup__end-button--route:hover {
+  color: navy;
 }
