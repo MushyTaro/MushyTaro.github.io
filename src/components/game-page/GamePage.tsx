@@ -30,7 +30,9 @@ function GamePage(): JSX.Element | null {
   const [playerDiscColor, setPlayerDiscColor] = useState(localStorage.getItem("playerDiscColor") as DiscColor);
   const computerDiscColor = (playerDiscColor === "W" ? "B" : "W") as DiscColor;
   const overlayVisible = currentTurn === computerDiscColor && !popupVisible;
+  const isBoardEmpty = board.every((row) => row.every((cell) => cell === ""));
   const navigate = useNavigate();
+
   useEffect(() => {
     if (overlayVisible && !isFetching) {
       setTimeout(() => {
@@ -50,6 +52,11 @@ function GamePage(): JSX.Element | null {
     return null;
   }
   if (isFetching) {
+    const registerNewAccount = () => {
+      uploadAccount(username, false);
+      uploadGameState(username, password, initialBoard, "B", playerDiscColor, "");
+      setBoard(initialBoard);
+    };
     const fetchGameStateData = async () => {
       const fetchedAccountData = await fetchAccountData(username);
       if (fetchedAccountData && !fetchedAccountData.isGameEnded) {
@@ -63,14 +70,10 @@ function GamePage(): JSX.Element | null {
             setPopupVisible(true);
           }
         } else {
-          uploadAccount(username, false);
-          uploadGameState(username, password, initialBoard, "B", playerDiscColor, "");
-          setBoard(initialBoard);
+          registerNewAccount();
         }
       } else {
-        uploadAccount(username, false);
-        uploadGameState(username, password, initialBoard, "B", playerDiscColor, "");
-        setBoard(initialBoard);
+        registerNewAccount();
       }
     };
     fetchGameStateData();
@@ -94,14 +97,10 @@ function GamePage(): JSX.Element | null {
   };
   return (
     <div className="game-page-container">
-      {(overlayVisible || board.every((row) => row.every((cell) => cell === ""))) && (
+      {(overlayVisible || isBoardEmpty) && (
         <div className="overlay">
           <div className="overlay__content">
-            <span>
-              {board.every((row) => row.every((cell) => cell === ""))
-                ? "Loading Game....."
-                : "The computer is making a move...."}
-            </span>
+            <span>{isBoardEmpty ? "Loading Game....." : "The computer is making a move...."}</span>
           </div>
         </div>
       )}
