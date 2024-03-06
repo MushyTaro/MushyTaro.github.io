@@ -1,25 +1,24 @@
-import { useNavigate } from "react-router-dom";
 import { MessageType, Scores } from "../../types";
-import "../../styles/game-page/Popup.css";
+import "../../styles/game-page/GameStatusPopup.css";
 
 interface PopupProps {
   show: boolean;
   messageType: MessageType;
   onClose: () => void;
+  onNavigate: () => void;
   score: Scores;
 }
 
-export default function Popup({ show, messageType, onClose, score }: PopupProps): JSX.Element {
-  const navigate = useNavigate();
+export default function GameStatusPopup({ show, messageType, onClose, onNavigate, score }: PopupProps): JSX.Element {
   const popupContent = messageType.startsWith("skip") ? (
-    <div className="popup-content">
+    <div className="game-page-popup-content">
       <span>{`${messageType.substring(4)} turn has been skipped due to no valid moves`}</span>
       <button type="button" onClick={onClose}>
         Ok
       </button>
     </div>
   ) : (
-    <div className="popup-content">
+    <div className="game-page-popup-content">
       <span>
         {score.playerScore === score.computerScore
           ? "It's a draw! Well played!"
@@ -27,20 +26,20 @@ export default function Popup({ show, messageType, onClose, score }: PopupProps)
           ? "Congratulations! You have win the game!"
           : "Looks like the tiles didn't flip in your favor this time. Better luck next time!"}
       </span>
-      <div className="popup--score-title">Scores:</div>
-      <div className="popup--score-result">
+      <div className="game-page-popup--score-title">Scores:</div>
+      <div className="game-page-popup--score-result">
         <span>{`Player: ${score.playerScore}`}</span>
         <span> - </span>
         <span>{`Computer: ${score.computerScore}`}</span>
       </div>
-      <button className="popup--end-button" type="button" onClick={() => navigate("/")}>
+      <button className="game-page-popup--end-button " type="button" onClick={onNavigate}>
         Go to homepage
       </button>
-      <button className="popup--end-button" type="button" onClick={onClose}>
+      <button className="game-page-popup--end-button" type="button" onClick={onClose}>
         Start a new game
       </button>
     </div>
   );
 
-  return <div className={`popup popup${show ? "--show" : ""}`}>{popupContent}</div>;
+  return <div className={`game-page-popup game-page-popup${show ? "--show" : ""}`}>{popupContent}</div>;
 }
