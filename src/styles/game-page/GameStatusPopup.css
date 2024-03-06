@@ -43,10 +43,10 @@
 .game-page-popup--end-button {
   color: white;
   border-radius: 4px;
-  background-color: #4caf50;
+  background-color: rgb(76, 175, 80);
 }
 .game-page-popup--end-button:hover {
-  background-color: #45a049;
+  background-color: rgb(69, 160, 73);
 }
 
 .game-page-popup--end-button--route {

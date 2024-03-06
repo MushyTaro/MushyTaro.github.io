@@ -9,7 +9,7 @@ export default function handleTurn({
   discColor: playerDiscColor,
   currentTurn,
 }: HandleTurnInputs): { nextTurn: DiscColor; message: MessageType } {
-  const updatedBoardCopy: GridValue[][] = updatedBoard.map((rowCopy) => [...rowCopy]);
+  const updatedBoardCopy: GridValue[][] = structuredClone(updatedBoard);
   let nextTurn: DiscColor = currentTurn === "B" ? "W" : "B";
   let markedUpdatedBoard = markValidMoves(nextTurn, updatedBoardCopy);
   let isValidMoveAvailable = markedUpdatedBoard.some((row) => row.includes("V"));

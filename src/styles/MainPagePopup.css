@@ -37,7 +37,7 @@
 .main-page-popup-content__form-group input {
   height: 1.5rem;
   width: 70%;
-  border: 1px solid #aaaaaa;
+  border: 1px solid rgb(170, 170, 170);
   border-radius: 1px;
 }
 
@@ -51,7 +51,7 @@
 
 .main-page-popup__end-button {
   border-radius: 4px;
-  background-color: #4caf50;
+  background-color: rgb(76, 175, 80);
   color: white;
 }
 .main-page-popup__end-button--route {

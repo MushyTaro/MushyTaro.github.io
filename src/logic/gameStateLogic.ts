@@ -1,7 +1,8 @@
 import { DiscColor, GridValue, MessageType } from "../types";
 
-const endpointUrl = "https://fi3si9acoa.execute-api.ap-southeast-1.amazonaws.com/";
-const gameKey = "L7f5R8bDkz3QvPm";
+const endpointUrl = import.meta.env.VITE_ENDPOINT_URL;
+const gameKey = import.meta.env.VITE_GAMEKEY;
+
 interface FetchGameDataResponse {
   board: GridValue[][];
   turn: DiscColor;
@@ -22,6 +23,8 @@ export async function fetchGameData(username: string, password: string): Promise
     const data = await response.json();
     return data.data;
   } catch (error) {
+    // eslint-disable-next-line no-console
+    console.error("Error:", error);
     return null;
   }
 }
@@ -36,6 +39,8 @@ export async function fetchAccountData(username: string): Promise<FetchAccountDa
 
     return data.data;
   } catch (error) {
+    // eslint-disable-next-line no-console
+    console.error("Error:", error);
     return null;
   }
 }
@@ -63,7 +68,8 @@ export async function uploadAccount(username: string, isGameEnded: boolean) {
     const data = await response.json();
     return data.data;
   } catch (error) {
-    // console.error("Error:", error);
+    // eslint-disable-next-line no-console
+    console.error("Error:", error);
   }
 }
 export async function uploadGameState(
@@ -100,6 +106,7 @@ export async function uploadGameState(
 
     return data.data;
   } catch (error) {
-    // console.error("Error:", error);
+    // eslint-disable-next-line no-console
+    console.error("Error:", error);
   }
 }
