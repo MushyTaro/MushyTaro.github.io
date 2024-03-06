@@ -16,6 +16,8 @@
   width: 70vh;
   grid-template-columns: repeat(8, 1fr);
   grid-template-rows: repeat(8, 1fr);
+  border-radius: 8px;
+  overflow: hidden;
 }
 
 .gameboard-grid__indicator {

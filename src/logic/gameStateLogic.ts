@@ -9,6 +9,7 @@ interface FetchGameDataResponse {
   playerDiscColor: DiscColor;
   message: MessageType;
 }
+
 interface FetchAccountDataResponse {
   isGameEnded: boolean;
 }
@@ -20,7 +21,6 @@ export async function fetchGameData(username: string, password: string): Promise
       throw new Error("Network response was not ok");
     }
     const data = await response.json();
-
     return data.data;
   } catch (error) {
     // eslint-disable-next-line no-console

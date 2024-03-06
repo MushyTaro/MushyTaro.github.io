@@ -6,6 +6,7 @@
   padding-top: 300px;
   background-color: rgba(0, 0, 0, 0.5);
   color: black;
+  z-index: 2;
 }
 .game-page-popup--show {
   display: block;
@@ -13,29 +14,49 @@
 
 .game-page-popup-content {
   background-color: white;
-  margin: 0px auto;
   padding: 20px;
   border: 1px solid #888888;
-  width: 40%;
+  border-radius: 8px;
+  margin: 0px auto;
+  width: 30%;
   font-size: 1.2rem;
   text-align: center;
 }
 .game-page-popup--score-title {
-  margin-top: 10px;
+  margin-top: 20px;
   font-size: 1.5rem;
   font-weight: bolder;
 }
 .game-page-popup--score-result {
   display: grid;
   grid-template-columns: 3fr 1fr 3fr;
-  margin-bottom: 15px;
+  margin-bottom: 20px;
 }
 .game-page-popup-content button {
   display: block;
-  margin: 20px auto 0px;
+  margin: 10px auto 0px;
   font-size: 1rem;
+  padding: 10px 20px;
+  border: none;
 }
-.game-page-popup-content .game-page-popup--end-button {
-  display: inline-block;
-  margin: 20px 10px 0px;
+
+.game-page-popup-button {
+  color: white;
+  border-radius: 4px;
+  background-color: rgb(76, 175, 80);
+}
+.game-page-popup-button:hover {
+  background-color: rgb(69, 160, 73);
+}
+
+.game-page-popup--end-button--route {
+  background: none;
+  border: none;
+  color: blue;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.game-page-popup--end-button--route:hover {
+  color: navy;
 }
