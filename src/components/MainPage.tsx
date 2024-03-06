@@ -4,15 +4,16 @@ import { useNavigate } from "react-router-dom";
 import black_disc_imagePath from "../assets/black-disc.png";
 import white_disc_imagePath from "../assets/white-disc.png";
 import { fetchAccountData } from "../logic/gameStateLogic";
-import { DiscColor } from "../types";
+import validateCredentials from "../logic/validateCredentials";
+import { CtaType, DiscColor } from "../types";
 import MainPagePopup from "./MainPagePopup";
 
 function MainPage(): JSX.Element {
   const [selectedDiscColor, setSelectedDiscColor] = useState<DiscColor>("W");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [isNewAccount, setIsNewAccount] = useState<boolean>(false);
-  const [errorMessageShow, setErrorMessageShow] = useState<boolean>(false);
+  const [ctaType, setCtaType] = useState<CtaType>("login");
+  const [showErrorMessage, setShowErrorMessage] = useState<boolean>(false);
   const [showPopup, setShowPopup] = useState(true);
   const navigate = useNavigate();
 
@@ -30,18 +31,18 @@ function MainPage(): JSX.Element {
           show={showPopup}
           username={username}
           password={password}
-          handleUsernameChange={(event) => {
-            setErrorMessageShow(false);
+          handleChangeUsername={(event) => {
+            setShowErrorMessage(false);
             setUsername(event.target.value);
           }}
-          handlePasswordChange={(event) => {
-            setErrorMessageShow(false);
+          handleChangePassword={(event) => {
+            setShowErrorMessage(false);
             setPassword(event.target.value);
           }}
-          handleSubmit={(event) => {
+          handleSubmit={async (event) => {
             event.preventDefault();
-            if (!isNewAccount) {
-              (async () => {
+            if (validateCredentials(username, password) === "valid") {
+              if (ctaType === "login") {
                 const fetchedData = await fetchAccountData(username);
                 if (fetchedData) {
                   if (!fetchedData.isGameEnded) {
@@ -50,28 +51,28 @@ function MainPage(): JSX.Element {
                     setShowPopup(false);
                   }
                 } else {
-                  setErrorMessageShow(true);
+                  setShowErrorMessage(true);
                 }
-              })();
-            } else {
-              (async () => {
+              } else {
                 const fetchedData = await fetchAccountData(username);
                 if (fetchedData) {
-                  setErrorMessageShow(true);
+                  setShowErrorMessage(true);
                 } else {
                   setShowPopup(false);
                 }
-              })();
+              }
+            } else {
+              setShowErrorMessage(true);
             }
           }}
-          handleCreateAccount={() => {
-            setErrorMessageShow(false);
+          handleChangeForm={() => {
+            setShowErrorMessage(false);
             setUsername("");
             setPassword("");
-            setIsNewAccount(!isNewAccount);
+            setCtaType(ctaType === "login" ? "register" : "login");
           }}
-          isNewAccount={isNewAccount}
-          errorMessageShow={errorMessageShow}
+          ctaType={ctaType}
+          showErrorMessage={showErrorMessage}
         />
       )}
 

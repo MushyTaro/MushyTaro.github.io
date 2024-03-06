@@ -14,6 +14,15 @@ import ScoreBoard from "./ScoreBoard";
 function GamePage(): JSX.Element | null {
   const username = localStorage.getItem("username");
   const password = localStorage.getItem("password");
+  const navigate = useNavigate();
+  const getPlayerDiscColor = () => {
+    const discColor = window.localStorage.getItem("playerDiscColor");
+    if (discColor && (discColor === "B" || discColor === "W")) {
+      return discColor;
+    }
+    navigate("/");
+    return "W";
+  };
   const initialBoard: GridValue[][] = Array.from({ length: 8 }, () => Array(8).fill(""));
   const centerRow = Math.floor(initialBoard.length / 2);
   const centerCol = Math.floor(initialBoard[0].length / 2);
@@ -23,20 +32,20 @@ function GamePage(): JSX.Element | null {
   initialBoard[centerRow][centerCol - 1] = "B";
   const [board, setBoard] = useState<GridValue[][]>(initialBoard);
   const [currentTurn, setCurrentTurn] = useState<DiscColor>("B");
-  const [popupVisible, setPopupVisible] = useState(false);
+  const [popupVisible, setPopupVisible] = useState<boolean>(false);
   const [popupMessage, setPopupMessage] = useState<MessageType>("");
   const [isFetching, setIsFetching] = useState<boolean>(true);
-  const [playerDiscColor, setPlayerDiscColor] = useState(localStorage.getItem("playerDiscColor") as DiscColor);
-  const computerDiscColor = (playerDiscColor === "W" ? "B" : "W") as DiscColor;
+  const [playerDiscColor, setPlayerDiscColor] = useState(getPlayerDiscColor);
+  const computerDiscColor: DiscColor = playerDiscColor === "W" ? "B" : "W";
   const overlayVisible = currentTurn === computerDiscColor && !popupVisible;
-  const navigate = useNavigate();
+
   useEffect(() => {
     if (overlayVisible && !isFetching) {
       setTimeout(() => {
         const bestMove = getComputerMove({ board, discColor: computerDiscColor });
-        const selectedCell = document.querySelector(
+        const selectedCell: HTMLButtonElement | null = document.querySelector(
           `.gameboard-grid[data-row="${bestMove.row}"][data-col="${bestMove.col}"]`
-        ) as HTMLButtonElement;
+        );
         if (selectedCell) {
           selectedCell.click();
         }

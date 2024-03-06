@@ -1,7 +1,7 @@
 import { DiscColor, DiscColorBoardState, GridPosition, GridValue } from "../types";
 
 export function getDiscsToFlip(gridPosition: GridPosition, discColorBoardState: DiscColorBoardState): GridPosition[] {
-  const boardCopy: GridValue[][] = discColorBoardState.board.map((rowCopy) => [...rowCopy]);
+  const boardCopy: GridValue[][] = structuredClone(discColorBoardState.board);
   const discsToFlip: { row: number; col: number }[] = [];
   for (let rowDelta = -1; rowDelta <= 1; rowDelta += 1) {
     for (let colDelta = -1; colDelta <= 1; colDelta += 1) {
