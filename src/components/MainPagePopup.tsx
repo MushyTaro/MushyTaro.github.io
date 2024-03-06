@@ -48,10 +48,12 @@ const MainPagePopup: React.FC<PopupProps> = ({
           </span>
         )}
         <div className="main-page-popup-content__button-group">
-          <button type="button" onClick={handleChangeForm}>
-            {ctaType === "register" ? "Login" : "Create new account"}
+          <button type="submit" className="main-page-popup__end-button">
+            {ctaType === "register" ? "Create new account" : "Login"}
           </button>
-          <button type="submit">Submit</button>
+          <button type="button" className="main-page-popup__end-button--route" onClick={handleChangeForm}>
+            {ctaType === "register" ? "Return to login" : "Create new account"}
+          </button>
         </div>
       </form>
     </div>

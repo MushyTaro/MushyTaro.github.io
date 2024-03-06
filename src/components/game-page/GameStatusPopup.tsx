@@ -15,7 +15,7 @@ export default function GameStatusPopup({ show, messageType, onClose, onNavigate
       <span>{`${messageType.substring(
         4
       )} turn has been skipped due to no available moves to flip any opponent's discs`}</span>
-      <button type="button" onClick={onClose}>
+      <button type="button" className="game-page-popup-button" onClick={onClose}>
         Ok
       </button>
     </div>
@@ -34,15 +34,11 @@ export default function GameStatusPopup({ show, messageType, onClose, onNavigate
         <span> - </span>
         <span>{`Computer: ${score.computerScore}`}</span>
       </div>
-      <button
-        className="game-page-popup--end-button game-page-popup--end-button--route"
-        type="button"
-        onClick={onNavigate}
-      >
-        Go to homepage
-      </button>
-      <button className="game-page-popup--end-button" type="button" onClick={onClose}>
+      <button className="game-page-popup-button" type="button" onClick={onClose}>
         Start a new game
+      </button>
+      <button className="game-page-popup--end-button--route" type="button" onClick={onNavigate}>
+        Go to homepage
       </button>
     </div>
   );
