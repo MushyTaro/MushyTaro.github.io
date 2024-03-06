@@ -40,12 +40,12 @@
   border: none;
 }
 
-.game-page-popup--end-button {
+.game-page-popup-button {
   color: white;
   border-radius: 4px;
   background-color: rgb(76, 175, 80);
 }
-.game-page-popup--end-button:hover {
+.game-page-popup-button:hover {
   background-color: rgb(69, 160, 73);
 }
 
