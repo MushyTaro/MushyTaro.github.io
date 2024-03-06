@@ -39,7 +39,7 @@
   padding: 10px 20px;
   border: none;
   border-radius: 4px;
-  background-color: #4caf50;
+  background-color: rgb(76, 175, 80);
   color: white;
 }
 .game-page-popup-content .game-page-popup--end-button {
@@ -48,14 +48,14 @@
 }
 
 .game-page-popup-content button:hover {
-  background-color: #45a049;
+  background-color: rgb(69, 160, 73);
 }
 
 .game-page-popup-content .game-page-popup--end-button--route {
-  background-color: #ee8e21;
+  background-color: rgb(238, 142, 33);
   margin-left: 10px;
 }
 
 .game-page-popup-content .game-page-popup--end-button--route:hover {
-  background-color: #ec8510;
+  background-color: rgb(236, 133, 16);
 }

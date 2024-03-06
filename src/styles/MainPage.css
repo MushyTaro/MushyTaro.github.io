@@ -36,8 +36,8 @@
   font-weight: bold;
   border: none;
   border-radius: 5px;
-  background-color: #29bbce;
-  color: #fff;
+  background-color: rgb(41, 187, 206);
+  color: rgb(255, 255, 255);
 }
 
 .submit-button:hover {

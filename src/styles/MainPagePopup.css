@@ -37,7 +37,7 @@
 .main-page-popup-content__form-group input {
   height: 1.5rem;
   width: 70%;
-  border: 1px solid #aaaaaa;
+  border: 1px solid rgb(170, 170, 170);
   border-radius: 1px;
 }
 
@@ -46,15 +46,15 @@
   padding: 10px 20px;
   border: none;
   border-radius: 4px;
-  background-color: #4caf50;
+  background-color: rgb(76, 175, 80);
   color: white;
   font-size: 1rem;
 }
 
 .main-page-popup-content .main-page-popup__end-button--route {
-  background-color: #ee8e21;
+  background-color: rgb(238, 142, 33);
 }
 
 .main-page-popup-content .main-page-popup__end-button--route:hover {
-  background-color: #ec8510;
+  background-color: rgb(236, 133, 16);
 }
