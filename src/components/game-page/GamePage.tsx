@@ -23,14 +23,15 @@ function GamePage(): JSX.Element | null {
     navigate("/");
     return "W";
   };
-  const initialBoard: GridValue[][] = Array.from({ length: 8 }, () => Array(8).fill(""));
-  const centerRow = Math.floor(initialBoard.length / 2);
-  const centerCol = Math.floor(initialBoard[0].length / 2);
+  const blankBoard: GridValue[][] = Array.from({ length: 8 }, () => Array(8).fill(""));
+  const [board, setBoard] = useState<GridValue[][]>(blankBoard);
+  const centerRow = Math.floor(blankBoard.length / 2);
+  const centerCol = Math.floor(blankBoard[0].length / 2);
+  const initialBoard = structuredClone(blankBoard);
   initialBoard[centerRow - 1][centerCol - 1] = "W";
   initialBoard[centerRow][centerCol] = "W";
   initialBoard[centerRow - 1][centerCol] = "B";
   initialBoard[centerRow][centerCol - 1] = "B";
-  const [board, setBoard] = useState<GridValue[][]>(initialBoard);
   const [currentTurn, setCurrentTurn] = useState<DiscColor>("B");
   const [popupVisible, setPopupVisible] = useState<boolean>(false);
   const [popupMessage, setPopupMessage] = useState<MessageType>("");
@@ -38,7 +39,7 @@ function GamePage(): JSX.Element | null {
   const [playerDiscColor, setPlayerDiscColor] = useState(getPlayerDiscColor);
   const computerDiscColor: DiscColor = playerDiscColor === "W" ? "B" : "W";
   const overlayVisible = currentTurn === computerDiscColor && !popupVisible;
-
+  const isBoardEmpty = board.every((row) => row.every((cell) => cell === ""));
   useEffect(() => {
     if (overlayVisible && !isFetching) {
       setTimeout(() => {
@@ -57,8 +58,12 @@ function GamePage(): JSX.Element | null {
     navigate("/");
     return null;
   }
-
   if (isFetching) {
+    const registerNewAccount = () => {
+      uploadAccount(username, false);
+      uploadGameState(username, password, initialBoard, "B", playerDiscColor, "");
+      setBoard(initialBoard);
+    };
     const fetchGameStateData = async () => {
       const fetchedAccountData = await fetchAccountData(username);
       if (fetchedAccountData && !fetchedAccountData.isGameEnded) {
@@ -72,12 +77,10 @@ function GamePage(): JSX.Element | null {
             setPopupVisible(true);
           }
         } else {
-          uploadAccount(username, false);
-          uploadGameState(username, password, initialBoard, "B", playerDiscColor, "");
+          registerNewAccount();
         }
       } else {
-        uploadAccount(username, false);
-        uploadGameState(username, password, initialBoard, "B", playerDiscColor, "");
+        registerNewAccount();
       }
     };
     fetchGameStateData();
@@ -99,10 +102,15 @@ function GamePage(): JSX.Element | null {
     }
     setBoard(updatedBoard);
   };
-
   return (
     <div className="game-page-container">
-      {overlayVisible && <div className="overlay" />}
+      {(overlayVisible || isBoardEmpty) && (
+        <div className="overlay">
+          <div className="overlay__content">
+            <span>{isBoardEmpty ? "Loading Game....." : "The computer is making a move...."}</span>
+          </div>
+        </div>
+      )}
 
       <GameBoard board={markValidMoves(currentTurn, board)} discColor={currentTurn} onBoardPlay={updateGame} />
       <ScoreBoard

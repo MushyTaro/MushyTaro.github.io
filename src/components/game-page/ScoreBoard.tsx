@@ -12,14 +12,14 @@ export default function ScoreBoard({ playerDiscColor, score, currentTurn }: Scor
   const [playerTurn, computerTurn] = currentTurn === playerDiscColor ? ["--current", ""] : ["", "--current"];
   return (
     <div className="score-board">
-      <div className={`score-board__player score-board__player${playerTurn}`}>
+      <div className={`score-board__player score-board__player${playerScoreDisc} score-board__player${playerTurn}`}>
         Player
         <div className={`score-board__player__disc score-board__player__disc${playerScoreDisc}`}>
           {score.playerScore}
         </div>
       </div>
-      <span className="score-board__text">Scores</span>
-      <div className={`score-board__computer score-board__computer${computerTurn}`}>
+      <span className="score-board__text">VS</span>
+      <div className={`score-board__player score-board__player${computerScoreDisc} score-board__player${computerTurn}`}>
         <div className={`score-board__computer__disc score-board__computer__disc${computerScoreDisc}`}>
           {score.computerScore}
         </div>

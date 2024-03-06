@@ -13,31 +13,31 @@
   display: flex;
   align-items: center;
   padding: 5px 15px;
+  border-radius: 50px;
 }
 
 .score-board__player {
   justify-content: space-between;
-  background-color: rgb(77, 24, 126);
-  opacity: 0.8;
+  background-color: black;
+  color: white;
+  opacity: 0.5;
+  border: 1px white solid;
 }
 
-.score-board__computer {
-  justify-content: space-between;
-  background-color: rgb(138, 109, 29);
-  opacity: 0.8;
+.score-board__player--white {
+  background-color: white;
+  color: black;
+  border: 1px black solid;
 }
 
 .score-board__player--current {
-  background-color: rgb(135, 41, 224);
   opacity: 1;
 }
-.score-board__computer--current {
-  background-color: rgb(241, 191, 53);
-  opacity: 1;
-}
+
 .score-board__text {
   justify-content: center;
-  background-color: rgb(156, 27, 135);
+  background-color: transparent;
+  font-size: 4rem;
 }
 
 .score-board__player__disc,
@@ -49,10 +49,12 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  border: 1px solid white;
 }
 
 .score-board__player__disc--white,
 .score-board__computer__disc--white {
   background-color: white;
   color: black;
+  border: 1px solid black;
 }
