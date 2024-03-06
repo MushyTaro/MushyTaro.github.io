@@ -13,22 +13,28 @@
   display: flex;
   align-items: center;
   padding: 5px 15px;
+  border-radius: 50px;
 }
 
 .score-board__player {
   justify-content: space-between;
-  background-color: rgb(190, 115, 29);
-  opacity: 0.8;
+  background-color: black;
+  color: white;
+  opacity: 0.5;
+}
+
+.score-board__player--white {
+  background-color: white;
+  color: black;
 }
 
 .score-board__player--current {
-  background-color: rgb(255, 136, 0);
   opacity: 1;
 }
 
 .score-board__text {
   justify-content: center;
-  background-color: rgb(76, 175, 80);
+  background-color: transparent;
 }
 
 .score-board__player__disc,
@@ -40,10 +46,12 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  border: 1px solid white;
 }
 
 .score-board__player__disc--white,
 .score-board__computer__disc--white {
   background-color: white;
   color: black;
+  border: 1px solid black;
 }
