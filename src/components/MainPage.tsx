@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import black_disc_imagePath from "../assets/black-disc.png";
 import white_disc_imagePath from "../assets/white-disc.png";
-import { fetchAccountData } from "../logic/gameStateLogic";
+import { fetchAccountData, fetchGameData } from "../logic/gameStateLogic";
 import validateCredentials from "../logic/validateCredentials";
 import { CtaType, DiscColor } from "../types";
 import MainPagePopup from "./MainPagePopup";
@@ -43,19 +43,24 @@ function MainPage(): JSX.Element {
             event.preventDefault();
             if (validateCredentials(username, password) === "valid") {
               if (ctaType === "login") {
-                const fetchedData = await fetchAccountData(username);
-                if (fetchedData) {
-                  if (!fetchedData.isGameEnded) {
-                    routeToGamePage();
+                const fetchedGameData = await fetchGameData(username, password);
+                if (fetchedGameData) {
+                  const fetchedAccountData = await fetchAccountData(username);
+                  if (fetchedAccountData) {
+                    if (!fetchedAccountData.isGameEnded) {
+                      routeToGamePage();
+                    } else {
+                      setShowPopup(false);
+                    }
                   } else {
-                    setShowPopup(false);
+                    setShowErrorMessage(true);
                   }
                 } else {
                   setShowErrorMessage(true);
                 }
               } else {
-                const fetchedData = await fetchAccountData(username);
-                if (fetchedData) {
+                const fetchedAccountData = await fetchAccountData(username);
+                if (fetchedAccountData) {
                   setShowErrorMessage(true);
                 } else {
                   setShowPopup(false);
