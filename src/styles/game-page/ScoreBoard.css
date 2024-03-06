@@ -37,6 +37,7 @@
 .score-board__text {
   justify-content: center;
   background-color: transparent;
+  font-size: 4rem;
 }
 
 .score-board__player__disc,
