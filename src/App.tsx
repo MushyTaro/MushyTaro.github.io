@@ -1,17 +1,17 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import MainPage from "./components/MainPage";
 import GamePage from "./components/game-page/GamePage";
 import "./styles/App.css";
 
 const App = () => (
-  <Router>
+  <BrowserRouter>
     <Routes>
       <Route path="/" element={<MainPage />} />
       <Route path="/game/" element={<GamePage />} />
     </Routes>
-  </Router>
+  </BrowserRouter>
 );
 
 ReactDOM.createRoot(document.getElementById("content")!).render(
