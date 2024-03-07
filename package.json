@@ -1,4 +1,5 @@
 {
+  "homepage": "http://MushyTaro.github.io/reversi-scy",
   "name": "starter-template",
   "private": true,
   "version": "0.0.0",
@@ -10,7 +11,9 @@
     "typecheck": "tsc --noEmit",
     "pretty": "prettier --write \"src/**/*.{ts,tsx}\"",
     "commit": "cz",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "predeploy": "npm run build", 
+    "deploy": "gh-pages -d dist"  
   },
   "dependencies": {
     "react": "^18.2.0",
@@ -27,12 +30,13 @@
     "@vitejs/plugin-react": "^4.0.3",
     "commitizen": "^4.3.0",
     "eslint": "^8.52.0",
-    "eslint-plugin-react-hooks": "^4.6.0",
-    "eslint-plugin-react-refresh": "^0.4.3",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-airbnb-typescript": "^17.1.0",
     "eslint-config-next": "^14.1.0",
     "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-react-refresh": "^0.4.3",
+    "gh-pages": "^6.1.1",
     "husky": "^8.0.0",
     "lint-staged": "^15.0.2",
     "prettier": "^3.0.3",
