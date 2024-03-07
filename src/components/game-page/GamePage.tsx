@@ -53,6 +53,19 @@ function GamePage(): JSX.Element | null {
       }, 1000);
     }
   }, [board, computerDiscColor, currentTurn, isFetching, overlayVisible]);
+  useEffect(() => {
+    const handleVisibilityChange = () => {
+      if (!document.hidden) {
+        setIsFetching(true);
+      }
+    };
+
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+
+    return () => {
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
+    };
+  }, []);
 
   if (!(playerDiscColor === "B" || playerDiscColor === "W") || !username || !password) {
     navigate("/");
